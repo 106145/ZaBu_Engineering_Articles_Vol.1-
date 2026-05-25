@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleanroom Pressurisation & Cascade Zoning | ZABU Asia Engineering Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B3E;
+    --navy-mid: #162A5C;
+    --navy-light: #1E3A7A;
+    --gold: #F5A623;
+    --gold-light: #FBCC73;
+    --gold-dark: #C47F10;
+    --white: #FFFFFF;
+    --off-white: #F7F8FA;
+    --light-gray: #EEF0F4;
+    --mid-gray: #8A93A8;
+    --text-dark: #1A2035;
+    --text-body: #3A4260;
+    --green: #1a6b52;
+    --green-bg: rgba(26,107,82,0.1);
+    --red: #8B2020;
+    --red-bg: rgba(139,32,32,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; background: var(--off-white); color: var(--text-body); line-height: 1.7; }
+
+  nav {
+    background: var(--navy); padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px; position: sticky; top: 0; z-index: 100;
+    border-bottom: 3px solid var(--gold);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-logo-circle {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+    font-size: 13px; color: var(--gold);
+  }
+  .nav-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; color: var(--white); line-height: 1.2; }
+  .nav-title span { color: var(--gold); }
+  .nav-tag { font-size: 11px; color: var(--mid-gray); letter-spacing: 1px; text-transform: uppercase; }
+  .nav-pill { background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  .hero { background: var(--navy); color: var(--white); padding: 5rem 2.5rem 4rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; border: 60px solid rgba(245,166,35,0.08); }
+  .hero::after { content: ''; position: absolute; bottom: -60px; left: 30%; width: 250px; height: 250px; border-radius: 50%; border: 40px solid rgba(245,166,35,0.05); }
+  .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.4);
+    color: var(--gold); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 20px; margin-bottom: 1.5rem;
+  }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.2rem; }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.72); max-width: 640px; margin-bottom: 2rem; line-height: 1.7; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); }
+  .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.6); }
+  .hero-meta-item strong { color: var(--white); font-weight: 600; }
+  .meta-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+  .vol-badge {
+    display: inline-block; background: var(--gold); color: var(--navy);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+    font-size: 12px; padding: 4px 12px; border-radius: 4px;
+    letter-spacing: 1px; margin-bottom: 1rem;
+  }
+
+  .page-body { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  .toc-card { background: var(--white); border: 1px solid #DDE2ED; border-left: 4px solid var(--gold); border-radius: 10px; padding: 1.5rem 2rem; margin-bottom: 3rem; }
+  .toc-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 1rem; }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 2rem; }
+  .toc-grid a { font-size: 14px; color: var(--navy-mid); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+  .toc-grid a:hover { color: var(--gold-dark); }
+  .toc-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; color: var(--gold); min-width: 20px; }
+
+  .section { margin-bottom: 3.5rem; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--light-gray); }
+  .section-num { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; color: var(--gold); background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.3); padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px; white-space: nowrap; }
+  .section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--navy); }
+  .section p { margin-bottom: 1rem; font-size: 0.97rem; }
+  .section p:last-child { margin-bottom: 0; }
+
+  .callout { background: var(--navy); color: var(--white); border-radius: 10px; padding: 1.5rem 2rem; margin: 1.5rem 0; position: relative; overflow: hidden; }
+  .callout::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .callout p { font-size: 0.95rem; color: rgba(255,255,255,0.85); margin: 0; }
+
+  .callout-info { background: rgba(245,166,35,0.07); border: 1px solid rgba(245,166,35,0.25); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .callout-info .callout-label { color: var(--gold-dark); }
+  .callout-info p { color: var(--text-body); margin: 0; font-size: 0.94rem; }
+
+  .callout-warn { background: var(--red-bg); border: 1px solid rgba(139,32,32,0.2); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .callout-warn .callout-label { color: var(--red); }
+  .callout-warn p { color: var(--text-body); margin: 0; font-size: 0.94rem; }
+
+  /* PRESSURE CASCADE DIAGRAM */
+  .cascade-wrap { background: var(--white); border: 1px solid #DDE2ED; border-radius: 12px; padding: 2rem; margin: 1.5rem 0; overflow-x: auto; }
+  .cascade-title { font-size: 12px; font-weight: 700; color: var(--mid-gray); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .cascade-row { display: flex; gap: 6px; align-items: stretch; margin-bottom: 8px; }
+  .zone-block {
+    flex: 1; min-width: 100px;
+    border-radius: 8px; padding: 14px 10px;
+    text-align: center; position: relative;
+  }
+  .zone-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; line-height: 1.2; margin-bottom: 6px; }
+  .zone-pa { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 800; line-height: 1; }
+  .zone-pa-unit { font-size: 10px; font-weight: 600; margin-top: 2px; }
+  .zone-iso { font-size: 10px; margin-top: 4px; opacity: 0.75; }
+  .z-high { background: var(--navy); color: var(--white); }
+  .z-high .zone-pa { color: var(--gold); }
+  .z-med { background: var(--navy-mid); color: var(--white); }
+  .z-med .zone-pa { color: var(--gold-light); }
+  .z-low { background: #2C4080; color: var(--white); }
+  .z-low .zone-pa { color: rgba(255,255,255,0.85); }
+  .z-neutral { background: var(--light-gray); color: var(--text-dark); }
+  .z-neutral .zone-pa { color: var(--navy); }
+  .z-ambient { background: #EEF0F4; color: var(--mid-gray); border: 1px solid #DDE2ED; }
+  .z-ambient .zone-pa { color: var(--mid-gray); }
+  .arrow-row { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .arrow-cell { flex: 1; min-width: 100px; text-align: center; font-size: 18px; color: var(--gold); }
+  .cascade-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--light-gray); }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--mid-gray); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  /* PHARMA DIAGRAM */
+  .pharma-cascade { display: flex; flex-direction: column; gap: 4px; margin: 1.5rem 0; }
+  .pharma-zone {
+    display: flex; align-items: center; gap: 16px;
+    border-radius: 8px; padding: 12px 16px;
+  }
+  .pharma-zone-grade { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 800; min-width: 80px; }
+  .pharma-zone-name { font-weight: 600; font-size: 14px; flex: 1; }
+  .pharma-zone-pa { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; text-align: right; min-width: 80px; }
+  .pharma-zone-iso { font-size: 11px; min-width: 60px; text-align: center; }
+  .pg-a { background: var(--navy); color: var(--white); }
+  .pg-a .pharma-zone-grade { color: var(--gold); }
+  .pg-a .pharma-zone-pa { color: var(--gold); }
+  .pg-b { background: var(--navy-mid); color: var(--white); }
+  .pg-b .pharma-zone-pa { color: var(--gold-light); }
+  .pg-c { background: #2C4080; color: var(--white); }
+  .pg-d { background: #3D5499; color: var(--white); }
+  .pg-d .pharma-zone-pa { color: rgba(255,255,255,0.8); }
+  .pg-crr { background: var(--light-gray); color: var(--navy); border: 1px solid #DDE2ED; }
+
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .info-card { background: var(--white); border: 1px solid #DDE2ED; border-top: 3px solid var(--gold); border-radius: 10px; padding: 1.25rem 1.2rem; }
+  .info-card-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 0.5rem; }
+  .info-card-val { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--navy); line-height: 1.2; }
+  .info-card-sub { font-size: 12px; color: var(--mid-gray); margin-top: 4px; }
+
+  .param-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .param-block { background: var(--white); border: 1px solid #DDE2ED; border-radius: 10px; padding: 1.2rem 1.4rem; display: flex; gap: 14px; align-items: flex-start; }
+  .param-icon { width: 38px; height: 38px; min-width: 38px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .param-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 4px; }
+  .param-val { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .param-note { font-size: 12px; color: var(--mid-gray); margin-top: 2px; }
+
+  .checklist { list-style: none; margin: 1rem 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--light-gray); font-size: 0.94rem; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-dot { width: 20px; height: 20px; min-width: 20px; background: rgba(245,166,35,0.15); border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold-dark); font-weight: 700; margin-top: 2px; }
+
+  .formula-box { background: #F0F3FA; border: 1px solid #C8D0E8; border-radius: 8px; padding: 1.2rem 1.5rem; margin: 1rem 0; font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--navy); letter-spacing: 0.5px; }
+  .formula-box small { display: block; margin-top: 6px; font-family: 'Barlow', sans-serif; font-size: 12px; color: var(--mid-gray); font-weight: 400; letter-spacing: 0; }
+
+  .pull-quote { border-left: 4px solid var(--gold); padding: 1rem 1.5rem; margin: 1.5rem 0; background: rgba(245,166,35,0.05); border-radius: 0 8px 8px 0; }
+  .pull-quote p { font-family: 'Source Serif 4', serif; font-size: 1.05rem; font-style: italic; color: var(--navy); margin: 0; }
+  .pull-quote cite { display: block; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--gold-dark); letter-spacing: 1px; text-transform: uppercase; font-style: normal; }
+
+  /* CONTROL STRATEGY TABLE */
+  .control-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 1.5rem 0; background: var(--white); border-radius: 10px; overflow: hidden; border: 1px solid #DDE2ED; }
+  .control-table th { background: var(--navy); color: var(--white); padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .control-table td { padding: 10px 14px; border-bottom: 1px solid #EEF0F4; color: var(--text-body); font-size: 13px; }
+  .control-table tr:last-child td { border-bottom: none; }
+  .control-table tr:nth-child(even) td { background: #FAFBFC; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .badge-good { background: var(--green-bg); color: var(--green); }
+  .badge-warn { background: var(--red-bg); color: var(--red); }
+  .badge-mid { background: rgba(245,166,35,0.15); color: var(--gold-dark); }
+
+  /* SERIES NAV */
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+  .series-card { background: var(--white); border: 1px solid #DDE2ED; border-radius: 10px; padding: 1.2rem 1.4rem; text-decoration: none; }
+  .series-card.active { border-color: var(--gold); border-left: 4px solid var(--gold); }
+  .series-card-vol { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 4px; }
+  .series-card-title { font-size: 14px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .series-card-status { font-size: 11px; color: var(--mid-gray); margin-top: 4px; }
+
+  .cta-section { background: var(--navy); color: var(--white); border-radius: 14px; padding: 3rem 2.5rem; text-align: center; margin-top: 4rem; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; border: 30px solid rgba(245,166,35,0.1); }
+  .cta-section h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 0.8rem; }
+  .cta-section h3 span { color: var(--gold); }
+  .cta-section p { color: rgba(255,255,255,0.7); font-size: 0.97rem; max-width: 500px; margin: 0 auto 2rem; }
+  .cta-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .cta-pill { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 6px; text-decoration: none; }
+  .cta-pill.outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.3); }
+
+  .brand-footer { text-align: center; padding: 2rem 1rem; font-size: 12px; color: var(--mid-gray); letter-spacing: 0.5px; }
+  .brand-footer strong { color: var(--navy); }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 1.2rem; }
+    .hero { padding: 3.5rem 1.2rem 3rem; }
+    .page-body { padding: 2rem 1.2rem 4rem; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .series-nav { grid-template-columns: 1fr; }
+    .cascade-row { flex-direction: column; }
+    .arrow-row { flex-direction: column; }
+    .cta-section { padding: 2rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo-circle">ZABU</div>
+    <div>
+      <div class="nav-title">ZABU <span>ASIA</span> Engineering Solutions</div>
+      <div class="nav-tag">Mission Critical Engineering · EPCM · Talent Development</div>
+    </div>
+  </div>
+  <div class="nav-pill">Free Resource</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="vol-badge">VOL. 02 — Engineering Knowledge Series</div>
+    <div class="hero-tag">Continuing from Vol. 01: Cleanroom HVAC Design Overview</div>
+    <h1>Cleanroom <span>Pressurisation</span><br>&amp; Cascade Zoning</h1>
+    <p class="hero-sub">One of the most critical — and most misunderstood — aspects of cleanroom HVAC design. Learn how pressure differentials protect cleanroom environments, how cascade zoning is designed across semiconductor fabs and pharmaceutical facilities, and the control strategies that keep it all working reliably.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>By ZABU Asia Engineering</strong></div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item">25+ Years Industry Experience</div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item">Singapore MNC Consultancy Background</div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item"><strong>~14 min read</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- SERIES NAV -->
+  <div class="series-nav">
+    <div class="series-card">
+      <div class="series-card-vol">Vol. 01</div>
+      <div class="series-card-title">Cleanroom HVAC Design Overview</div>
+      <div class="series-card-status">✅ Published</div>
+    </div>
+    <div class="series-card active">
+      <div class="series-card-vol">Vol. 02 — You are here</div>
+      <div class="series-card-title">Cleanroom Pressurisation &amp; Cascade Zoning</div>
+      <div class="series-card-status">📖 Current article</div>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc-card">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-grid">
+      <a href="#s1"><span class="toc-num">01</span> What is Cleanroom Pressurisation?</a>
+      <a href="#s5"><span class="toc-num">05</span> Pharmaceutical Cascade Design</a>
+      <a href="#s2"><span class="toc-num">02</span> Why Pressure Differentials Matter</a>
+      <a href="#s6"><span class="toc-num">06</span> Pressure Control Strategies</a>
+      <a href="#s3"><span class="toc-num">03</span> How Cascade Zoning Works</a>
+      <a href="#s7"><span class="toc-num">07</span> Instrumentation & Monitoring</a>
+      <a href="#s4"><span class="toc-num">04</span> Semiconductor Fab Cascade Design</a>
+      <a href="#s8"><span class="toc-num">08</span> Common Design Mistakes</a>
+    </div>
+  </div>
+
+  <!-- S1 -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>What is Cleanroom Pressurisation?</h2>
+    </div>
+    <p>Cleanroom pressurisation is the engineering practice of maintaining the air pressure inside a cleanroom space at a level that is higher (positive) or lower (negative) than adjacent spaces. This pressure difference — known as the differential pressure — creates a controlled airflow direction whenever a door or gap exists between two zones.</p>
+    <p>The concept is straightforward: air always flows from high pressure to low pressure. By engineering which zone is at higher pressure, engineers control the direction that air — and therefore airborne particles and contaminants — can travel.</p>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-label">Typical Differential</div>
+        <div class="info-card-val">10–15 Pa</div>
+        <div class="info-card-sub">Between adjacent cleanroom zones</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Minimum Maintained</div>
+        <div class="info-card-val">5 Pa</div>
+        <div class="info-card-sub">Absolute minimum during normal ops (ISO 14644-4)</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Measurement Unit</div>
+        <div class="info-card-val">Pascals (Pa)</div>
+        <div class="info-card-sub">1 Pa ≈ 0.004 inches of water column</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Monitoring Frequency</div>
+        <div class="info-card-val">Continuous</div>
+        <div class="info-card-sub">Real-time BMS/BAS monitoring with alarms</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Key Concept</div>
+      <p>Pressurisation does not filter air — it directs air movement. It works alongside HEPA filtration and air change rates as the third layer of contamination control in a cleanroom. All three must work together for effective environmental control.</p>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Why Pressure Differentials Matter</h2>
+    </div>
+    <p>Every time a cleanroom door opens, corridor door swings, or an air gap exists around penetrations, there is an opportunity for uncontrolled air movement. Without pressurisation control, contaminated air from lower-class areas can infiltrate higher-class cleanroom spaces — defeating the entire purpose of the filtration system.</p>
+    <p>The consequences of pressurisation failure depend on the industry:</p>
+
+    <div class="param-grid">
+      <div class="param-block">
+        <div class="param-icon">💾</div>
+        <div>
+          <div class="param-label">Semiconductor Impact</div>
+          <div class="param-val">Yield Loss</div>
+          <div class="param-note">Particle infiltration on wafers causes defects, killing chips in production. A single contamination event can result in millions of dollars of product loss in a high-volume fab.</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">💊</div>
+        <div>
+          <div class="param-label">Pharmaceutical Impact</div>
+          <div class="param-val">Batch Failure</div>
+          <div class="param-note">Microbial or particulate contamination of sterile products can cause full batch rejection, regulatory action by HSA/FDA/EMA, and in worst cases, patient safety risk.</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">🔬</div>
+        <div>
+          <div class="param-label">Negative Pressure Use</div>
+          <div class="param-val">Containment</div>
+          <div class="param-note">Hazardous chemical areas, potent compound handling (OEB4/5), and BSL laboratories use negative pressure to prevent outward leakage of dangerous materials.</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">📋</div>
+        <div>
+          <div class="param-label">Regulatory Impact</div>
+          <div class="param-val">Audit Failure</div>
+          <div class="param-note">HSA, FDA, and EMA auditors specifically review pressurisation records during GMP inspections. Inadequate monitoring data is a common 483 observation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"Pressurisation is the invisible shield of a cleanroom. You cannot see it working — but you will immediately see the consequences when it fails."</p>
+      <cite>ZABU Asia Engineering — Field Experience Note</cite>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>How Cascade Zoning Works</h2>
+    </div>
+    <p>Cascade zoning is the systematic arrangement of cleanroom spaces at progressively decreasing pressure levels as you move from the cleanest (most critical) zone outward to the less clean zones and finally to the general building or outside environment.</p>
+    <p>The design logic is simple: the highest pressure is maintained in the cleanest zone. Air always leaks outward — never inward — protecting the critical environment at all times.</p>
+
+    <div class="cascade-wrap">
+      <div class="cascade-title">Typical Cleanroom Cascade Pressure Layout — Semiconductor Example</div>
+      <div class="cascade-row">
+        <div class="zone-block z-high">
+          <div class="zone-label">Process Bay<br>(Fab Floor)</div>
+          <div class="zone-pa">+50</div>
+          <div class="zone-pa-unit">Pa above atm</div>
+          <div class="zone-iso">ISO Class 4–5</div>
+        </div>
+        <div class="zone-block z-med">
+          <div class="zone-label">Service<br>Chase / Sub-fab</div>
+          <div class="zone-pa">+40</div>
+          <div class="zone-pa-unit">Pa above atm</div>
+          <div class="zone-iso">ISO Class 6–7</div>
+        </div>
+        <div class="zone-block z-low">
+          <div class="zone-label">Gowning<br>Room</div>
+          <div class="zone-pa">+30</div>
+          <div class="zone-pa-unit">Pa above atm</div>
+          <div class="zone-iso">ISO Class 7–8</div>
+        </div>
+        <div class="zone-block z-neutral">
+          <div class="zone-label">Airlock /<br>Anteroom</div>
+          <div class="zone-pa">+20</div>
+          <div class="zone-pa-unit">Pa above atm</div>
+          <div class="zone-iso">ISO Class 8</div>
+        </div>
+        <div class="zone-block z-ambient">
+          <div class="zone-label">General<br>Building</div>
+          <div class="zone-pa">0</div>
+          <div class="zone-pa-unit">Atmospheric</div>
+          <div class="zone-iso">Unclassified</div>
+        </div>
+      </div>
+      <div class="arrow-row">
+        <div class="arrow-cell">↔</div>
+        <div class="arrow-cell">↔</div>
+        <div class="arrow-cell">↔</div>
+        <div class="arrow-cell">↔</div>
+        <div class="arrow-cell"></div>
+      </div>
+      <div style="font-size: 11px; color: var(--mid-gray); text-align: center; margin-top: 4px;">Air always flows outward → from higher to lower pressure zones</div>
+      <div class="cascade-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--navy)"></div>Highest pressure — most critical zone</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#2C4080"></div>Intermediate buffer zones</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--light-gray); border:1px solid #DDE2ED"></div>Unclassified / atmospheric reference</div>
+      </div>
+    </div>
+
+    <p>Each step down in the cascade is typically <strong>10–15 Pa</strong>. This step size must be large enough to be robust against normal HVAC fluctuations and door operations, but not so large that it creates excessive airflow leakage that wastes energy and makes the system difficult to control.</p>
+
+    <div class="callout-info">
+      <div class="callout-label">💡 Design Principle</div>
+      <p>In cascade design, airlocks and anterooms are not just architectural spaces — they are active pressure buffer zones. An airlock between a gowning room and the cleanroom means that at no point are the general building and the cleanroom directly connected, even when both doors are momentarily open.</p>
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Semiconductor Fab Cascade Design</h2>
+    </div>
+    <p>Semiconductor fabs are among the most complex cleanroom pressurisation challenges in the world. A large fab may have 20–50 individually pressurised zones across multiple floors, with a mix of positive-pressure process areas and negative-pressure chemical exhaust zones — all of which must be managed simultaneously.</p>
+
+    <ul class="checklist">
+      <li><span class="check-dot">→</span><div><strong>Fab Floor (ISO 4–5, +50 Pa)</strong> — The main wafer processing floor, maintained at the highest positive pressure. All airflow from surrounding areas is directed outward, away from the wafers.</div></li>
+      <li><span class="check-dot">→</span><div><strong>Sub-fab / Mechanical Chase (ISO 6–7, +40 Pa)</strong> — Located directly below the fab floor. Houses process tool connections, exhausts, and utility systems. Slightly lower pressure than the fab above.</div></li>
+      <li><span class="check-dot">→</span><div><strong>Chemical Storage Rooms (Negative Pressure)</strong> — Bulk chemical storage and hazardous gas cabinet areas are maintained at negative pressure to prevent outward leakage of toxic or flammable vapours.</div></li>
+      <li><span class="check-dot">→</span><div><strong>Corridor / Support Areas (ISO 7–8, +25–30 Pa)</strong> — General support corridors, maintenance access, and lower-classification process areas form the intermediate buffer ring around the core fab.</div></li>
+      <li><span class="check-dot">→</span><div><strong>Gowning Rooms (+15–20 Pa)</strong> — Entry control zones where personnel transition between general building clothing and cleanroom garments. Pressure is stepped down from the fab side to the building side.</div></li>
+      <li><span class="check-dot">→</span><div><strong>CDA / N₂ Rooms (Positive, Isolated)</strong> — Compressed Dry Air and Nitrogen distribution rooms are typically maintained at slight positive pressure but are isolated from the main fab pressurisation cascade.</div></li>
+    </ul>
+
+    <div class="callout-warn">
+      <div class="callout-label">⚠️ Critical Design Challenge</div>
+      <p>In semiconductor fabs, chemical exhaust systems create strong negative pressure pull on process tools. This conflicts with the positive pressurisation of the fab floor. Balancing these opposing forces — especially under variable process exhaust flow conditions — is one of the most demanding HVAC control engineering challenges in the industry. It requires very careful airflow balancing and fast-responding VAV control systems.</p>
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Pharmaceutical Cascade Design</h2>
+    </div>
+    <p>Pharmaceutical cleanrooms follow a graded zone system defined by EU GMP Annex 1 (2022 revision) and aligned with ISO 14644-1 classifications. Unlike semiconductor fabs which focus on particle control, pharmaceutical facilities must additionally manage microbial contamination — which means the cascade design also considers personnel flow, material airlocks, and gowning protocols.</p>
+
+    <div class="pharma-cascade">
+      <div class="pharma-zone pg-a">
+        <div class="pharma-zone-grade">Grade A</div>
+        <div class="pharma-zone-name">Critical zone — filling, stopper placement, open container exposure</div>
+        <div class="pharma-zone-iso">ISO 5</div>
+        <div class="pharma-zone-pa">Highest +Pa</div>
+      </div>
+      <div class="pharma-zone pg-b">
+        <div class="pharma-zone-grade">Grade B</div>
+        <div class="pharma-zone-name">Background environment to Grade A — aseptic preparation</div>
+        <div class="pharma-zone-iso">ISO 5</div>
+        <div class="pharma-zone-pa">+15 Pa vs C</div>
+      </div>
+      <div class="pharma-zone pg-c">
+        <div class="pharma-zone-grade">Grade C</div>
+        <div class="pharma-zone-name">Less critical sterile preparation, filling of products</div>
+        <div class="pharma-zone-iso">ISO 7</div>
+        <div class="pharma-zone-pa">+10–15 Pa vs D</div>
+      </div>
+      <div class="pharma-zone pg-d">
+        <div class="pharma-zone-grade">Grade D</div>
+        <div class="pharma-zone-name">Handling of components, packaging, lower-risk activities</div>
+        <div class="pharma-zone-iso">ISO 8</div>
+        <div class="pharma-zone-pa">+10 Pa vs CRR</div>
+      </div>
+      <div class="pharma-zone pg-crr">
+        <div class="pharma-zone-grade">Non-GMP</div>
+        <div class="pharma-zone-name">Unclassified corridors, general building</div>
+        <div class="pharma-zone-iso">—</div>
+        <div class="pharma-zone-pa">0 Pa (ref)</div>
+      </div>
+    </div>
+
+    <p>A key pharmaceutical-specific requirement is the <strong>material airlock</strong> and <strong>personnel airlock</strong> — these are separate, dedicated transition spaces with interlocked doors (only one door can open at a time) to maintain the pressure cascade integrity during movement of people and materials into the cleanroom.</p>
+
+    <div class="callout-info">
+      <div class="callout-label">💡 EU GMP Annex 1 (2022) Update</div>
+      <p>The 2022 revision of EU GMP Annex 1 significantly strengthened requirements around Contamination Control Strategy (CCS) documentation, which now explicitly requires a written justification for all pressurisation design decisions. Singapore's HSA has adopted alignment with EU GMP Annex 1 for sterile pharmaceutical manufacturing. Engineers working on pharma projects must be familiar with this revised standard.</p>
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Pressure Control Strategies</h2>
+    </div>
+    <p>Maintaining stable pressure differentials in a live cleanroom is an active, continuous control challenge. The HVAC system must respond to constant disturbances — door openings, variable process exhaust flows, changes in occupancy, and seasonal weather variations — while keeping pressure within tight tolerances.</p>
+
+    <table class="control-table">
+      <thead>
+        <tr>
+          <th>Control Method</th>
+          <th>How it Works</th>
+          <th>Best Used For</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Fixed Flow (Constant Volume)</strong></td>
+          <td>Supply and exhaust airflows are set at fixed values during commissioning. Pressure results from the imbalance between supply and exhaust.</td>
+          <td>Simple, small cleanrooms with stable loads</td>
+          <td><span class="badge badge-good">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pressure Sensor + VAV Control</strong></td>
+          <td>Differential pressure sensors monitor each zone. VAV dampers on supply or exhaust ducts modulate to maintain pressure setpoint.</td>
+          <td>Most modern cleanrooms — pharmaceutical and semiconductor</td>
+          <td><span class="badge badge-mid">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Cascade Control (Master-Slave)</strong></td>
+          <td>A master controller manages the highest-pressure zone; downstream zones are controlled relative to the zone above them in the cascade.</td>
+          <td>Multi-zone facilities with complex cascade requirements</td>
+          <td><span class="badge badge-mid">Medium-High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Active Exhaust Tracking</strong></td>
+          <td>Supply airflow tracks and responds to changes in process exhaust volume in real time, maintaining the supply-exhaust differential needed for pressurisation.</td>
+          <td>Semiconductor fabs with variable chemical exhaust loads</td>
+          <td><span class="badge badge-warn">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Airlock Interlocking</strong></td>
+          <td>Door interlock controls ensure only one airlock door can open at a time, limiting the duration and magnitude of pressure upset during personnel/material entry.</td>
+          <td>Pharmaceutical Grade A/B zones, potent compound areas</td>
+          <td><span class="badge badge-good">Low (add-on)</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="formula-box">
+      Required Supply-Exhaust Differential (m³/hr) = Leakage Area (m²) × Velocity through gap (m/s) × 3600
+      <small>The leakage area is the sum of all gaps — door undercuts, penetrations, and cracks — between the pressurised zone and adjacent spaces. In practice, this is estimated using room pressurisation test data or leakage coefficients from standards like ISO 14644-4 Annex B.</small>
+    </div>
+
+    <div class="formula-box">
+      Pressure Differential (Pa) = 0.5 × ρ × v²
+      <small>Where ρ = air density (~1.2 kg/m³ at 20°C) and v = air velocity through the gap (m/s). This relationship shows that doubling the gap velocity quadruples the pressure differential — small gap sizes have a large impact on pressure stability.</small>
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Instrumentation & Monitoring</h2>
+    </div>
+    <p>Pressurisation without reliable measurement is not cleanroom design — it is guesswork. Every cleanroom cascade zone must be instrumented, monitored, and alarmed, with data recorded for regulatory compliance and operational troubleshooting.</p>
+
+    <ul class="checklist">
+      <li><span class="check-dot">✓</span><div><strong>Magnehelic Gauges (Visual, Local)</strong> — Simple analogue differential pressure gauges mounted on walls between zones. Provide immediate visual indication for operators. Inexpensive but require manual reading and provide no data logging.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>Electronic Differential Pressure Transmitters (DPT)</strong> — 4–20mA or digital output sensors connected to the Building Management System (BMS/BAS). Enable real-time monitoring, alarming, data trending, and control system integration. Industry standard for all modern cleanrooms.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>BMS Alarm Setpoints</strong> — Typically configured with two alarm levels: a Low alarm (e.g. pressure drops below 5 Pa) triggering an advisory alert, and a Critical alarm (e.g. pressure reversal or <2 Pa) triggering immediate investigation. Alarm response procedures must be documented in SOPs.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>Environmental Monitoring Systems (EMS)</strong> — In pharmaceutical facilities, pressure monitoring data must be captured by a validated EMS system (e.g. Vaisala viewLinc, Kaye Validator) with CFR 21 Part 11-compliant audit trails for regulatory submission.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>Data Logging &amp; Trending</strong> — Historical pressure data allows engineers to identify drift, seasonal variations, and the impact of maintenance activities on pressurisation performance. Required for pharmaceutical batch records and GMP compliance.</div></li>
+    </ul>
+
+    <div class="callout-info">
+      <div class="callout-label">💡 Singapore Practice Note</div>
+      <p>In Singapore MNC projects, the DPT sensor specification — including accuracy class, calibration interval, and BMS integration protocol — is typically defined in the client's Basis of Design (BOD) document. Engineers must ensure sensor placements are agreed during the design review stage, as sensor locations affect both the accuracy of monitoring and the regulatory defensibility of the data.</p>
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Common Design Mistakes</h2>
+    </div>
+    <p>Many pressurisation problems in operational cleanrooms trace back to design decisions made years earlier. These are the most frequently encountered mistakes in real Singapore MNC project experience:</p>
+
+    <ul class="checklist">
+      <li><span class="check-dot">!</span><div><strong>Insufficient door undercut sizing</strong> — Too small an undercut means excessive resistance to door opening and abnormal pressure spikes. Too large increases leakage flow and makes pressurisation harder to maintain. The correct size must be calculated per room, not guessed.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Not accounting for door open scenarios</strong> — The control system must be designed to maintain cascade integrity even when multiple doors are open simultaneously. Design engineers who only calculate steady-state pressurisation without considering dynamic door-open events will create systems that fail during normal operations.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Ignoring penetration leakage</strong> — Every pipe, duct, conduit, and cable tray passing through cleanroom walls is a potential leakage path. Penetration sealing details must be included in the design, specified, and verified during construction — they are consistently overlooked on busy construction sites.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Pressure sensor placed too close to supply diffusers</strong> — A DPT sensor in the turbulent zone near a supply grille will read erroneously due to dynamic pressure effects. Sensors should be placed on stable wall surfaces away from direct airflow paths, at a height of 1.2–1.5m.</div></li>
+      <li><span class="check-dot">!</span><div><strong>No pressure bump testing during commissioning</strong> — The only way to validate a cascade design is to physically test it — measure airflow through door gaps, confirm alarm setpoints trigger correctly, and test system response to door-open events. Projects that skip this step during commissioning discover the problems during qualification — at far greater cost and delay.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Not designing for process exhaust variability</strong> — In semiconductor fabs, process exhaust flows vary significantly depending on which tools are running. A pressurisation design that works perfectly at 100% tool utilisation may fail at partial utilisation if the control system cannot track the changing exhaust demand. VAV control strategies must be validated across the full operational envelope.</div></li>
+    </ul>
+
+    <div class="callout">
+      <div class="callout-label">From the Field</div>
+      <p>In 25+ years of cleanroom projects across Singapore and the APAC region, the most common pressurisation failures during qualification are not caused by wrong design calculations — they are caused by correct calculations being poorly communicated to the construction team, leading to execution gaps. Design intent documentation and construction supervision are as important as the engineering calculations themselves.</p>
+    </div>
+  </div>
+
+  <!-- SHARE -->
+  <div style="background: var(--white); border: 1px solid #DDE2ED; border-radius: 10px; padding: 1.5rem 2rem; margin: 2.5rem 0; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="font-size: 24px;">📢</div>
+    <div>
+      <div style="font-weight: 700; color: var(--navy); margin-bottom: 4px; font-size: 0.95rem;">Found this useful?</div>
+      <p style="font-size: 0.9rem; margin: 0; color: var(--text-body);">Share this with engineers on LinkedIn or Facebook. Follow ZABU Asia Engineering Solutions for Vol. 03 — HVAC Load Calculation Basics for Mission Critical Facilities — coming soon.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h3>Learn this hands-on in <span>Singapore</span></h3>
+    <p>Our face-to-face engineering training classes go deeper — real design examples, calculations, Singapore codes, and actual project case studies from semiconductor, pharma, and data center facilities across the region.</p>
+    <div class="cta-pills">
+      <a href="mailto:contact@zabu-asia.com" class="cta-pill">📧 Enquire About Training</a>
+      <a href="https://www.linkedin.com/company/zabu-asia-solutions" class="cta-pill outline" target="_blank">Follow on LinkedIn</a>
+      <a href="https://www.facebook.com/zabu.asia.engineering" class="cta-pill outline" target="_blank">Follow on Facebook</a>
+    </div>
+    <p style="margin-top: 1.5rem; font-size: 12px; color: rgba(255,255,255,0.4);">ZABU Asia Engineering Solutions · contact@zabu-asia.com · Singapore</p>
+  </div>
+
+</div>
+
+<div class="brand-footer">
+  © 2025 <strong>ZABU Asia Engineering Solutions</strong>. All rights reserved. · Free Engineering Knowledge Series Vol. 02 · contact@zabu-asia.com
+</div>
+
+</body>
+</html>
