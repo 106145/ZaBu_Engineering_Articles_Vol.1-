@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleanroom HVAC Design Overview | ZABU Asia Engineering Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B3E;
+    --navy-mid: #162A5C;
+    --navy-light: #1E3A7A;
+    --gold: #F5A623;
+    --gold-light: #FBCC73;
+    --gold-dark: #C47F10;
+    --white: #FFFFFF;
+    --off-white: #F7F8FA;
+    --light-gray: #EEF0F4;
+    --mid-gray: #8A93A8;
+    --text-dark: #1A2035;
+    --text-body: #3A4260;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--off-white);
+    color: var(--text-body);
+    line-height: 1.7;
+  }
+
+  /* ── TOP NAV ── */
+  nav {
+    background: var(--navy);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--gold);
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-logo-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+  }
+  .nav-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  .nav-title span { color: var(--gold); }
+  .nav-tag {
+    font-size: 11px;
+    color: var(--mid-gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .nav-pill {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    color: var(--white);
+    padding: 5rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 60px solid rgba(245,166,35,0.08);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 30%;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    border: 40px solid rgba(245,166,35,0.05);
+  }
+  .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.4);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.72);
+    max-width: 620px;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-meta-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: rgba(255,255,255,0.6);
+  }
+  .hero-meta-item strong { color: var(--white); font-weight: 600; }
+  .meta-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+
+  /* ── LAYOUT ── */
+  .page-body { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  /* ── TOC ── */
+  .toc-card {
+    background: var(--white);
+    border: 1px solid #DDE2ED;
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+  }
+  .toc-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 1rem;
+  }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 2rem; }
+  .toc-grid a {
+    font-size: 14px;
+    color: var(--navy-mid);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 0;
+  }
+  .toc-grid a:hover { color: var(--gold-dark); }
+  .toc-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--gold);
+    min-width: 20px;
+  }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 3.5rem; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--light-gray);
+  }
+  .section-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--gold);
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+  .section p { margin-bottom: 1rem; font-size: 0.97rem; color: var(--text-body); }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--gold);
+  }
+  .callout-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .callout p { font-size: 0.95rem; color: rgba(255,255,255,0.85); margin: 0; }
+
+  .callout-info {
+    background: rgba(245,166,35,0.07);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .callout-info .callout-label { color: var(--gold-dark); }
+  .callout-info p { color: var(--text-body); margin: 0; font-size: 0.94rem; }
+
+  /* ── INFO GRID ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .info-card {
+    background: var(--white);
+    border: 1px solid #DDE2ED;
+    border-top: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 1.25rem 1.2rem;
+  }
+  .info-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 0.5rem;
+  }
+  .info-card-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .info-card-sub { font-size: 12px; color: var(--mid-gray); margin-top: 4px; }
+
+  /* ── ISO TABLE ── */
+  .iso-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 1.5rem 0;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #DDE2ED;
+  }
+  .iso-table th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .iso-table th:first-child { color: var(--gold); }
+  .iso-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #EEF0F4;
+    color: var(--text-body);
+  }
+  .iso-table tr:last-child td { border-bottom: none; }
+  .iso-table tr:nth-child(even) td { background: #FAFBFC; }
+  .iso-class {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--navy);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .badge-semi { background: rgba(245,166,35,0.15); color: var(--gold-dark); }
+  .badge-pharma { background: rgba(13,27,62,0.08); color: var(--navy-mid); }
+  .badge-dc { background: rgba(59,180,141,0.12); color: #1a6b52; }
+
+  /* ── SYSTEM FLOW ── */
+  .flow-wrap {
+    background: var(--white);
+    border: 1px solid #DDE2ED;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+  }
+  .flow-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: stretch;
+    margin-top: 1rem;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 120px;
+    background: var(--navy);
+    color: var(--white);
+    padding: 1rem 0.8rem;
+    text-align: center;
+    position: relative;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .flow-step:first-child { border-radius: 8px 0 0 8px; }
+  .flow-step:last-child { border-radius: 0 8px 8px 0; }
+  .flow-step::after {
+    content: '▶';
+    position: absolute;
+    right: -10px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-size: 14px;
+    z-index: 2;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-step-icon { font-size: 18px; margin-bottom: 6px; }
+  .flow-step-name { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--white); }
+  .flow-step-sub { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+  .flow-step.gold { background: var(--gold); }
+  .flow-step.gold .flow-step-name { color: var(--navy); }
+  .flow-step.gold .flow-step-sub { color: rgba(13,27,62,0.6); }
+
+  /* ── KEY PARAMETERS ── */
+  .param-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .param-block {
+    background: var(--white);
+    border: 1px solid #DDE2ED;
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .param-icon {
+    width: 38px; height: 38px; min-width: 38px;
+    background: var(--navy);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .param-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--mid-gray); margin-bottom: 4px;
+  }
+  .param-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--navy); line-height: 1.3;
+  }
+  .param-note { font-size: 12px; color: var(--mid-gray); margin-top: 2px; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; margin: 1rem 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--light-gray);
+    font-size: 0.94rem;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-dot {
+    width: 20px; height: 20px; min-width: 20px;
+    background: rgba(245,166,35,0.15);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    color: var(--gold-dark);
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  /* ── FORMULA BOX ── */
+  .formula-box {
+    background: #F0F3FA;
+    border: 1px solid #C8D0E8;
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.5px;
+  }
+  .formula-box small {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    color: var(--mid-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  /* ── QUOTE ── */
+  .pull-quote {
+    border-left: 4px solid var(--gold);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: rgba(245,166,35,0.05);
+    border-radius: 0 8px 8px 0;
+  }
+  .pull-quote p {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--navy);
+    margin: 0;
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold-dark);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  /* ── FOOTER / CTA ── */
+  .cta-section {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 14px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 30px solid rgba(245,166,35,0.1);
+  }
+  .cta-section h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.3px;
+  }
+  .cta-section h3 span { color: var(--gold); }
+  .cta-section p { color: rgba(255,255,255,0.7); font-size: 0.97rem; max-width: 500px; margin: 0 auto 2rem; }
+  .cta-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .cta-pill {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+  .cta-pill.outline {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+  .cta-pill.outline:hover { border-color: var(--gold); color: var(--gold); }
+  .brand-footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 12px;
+    color: var(--mid-gray);
+    letter-spacing: 0.5px;
+  }
+  .brand-footer strong { color: var(--navy); }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 1.2rem; }
+    .hero { padding: 3.5rem 1.2rem 3rem; }
+    .page-body { padding: 2rem 1.2rem 4rem; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .flow-steps { flex-direction: column; }
+    .flow-step { border-radius: 0; }
+    .flow-step:first-child { border-radius: 8px 8px 0 0; }
+    .flow-step:last-child { border-radius: 0 0 8px 8px; }
+    .flow-step::after { content: '▼'; right: 50%; transform: translateX(50%); top: auto; bottom: -12px; }
+    .cta-section { padding: 2rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo-circle">ZABU</div>
+    <div>
+      <div class="nav-title">ZABU <span>ASIA</span> Engineering Solutions</div>
+      <div class="nav-tag">Mission Critical Engineering · EPCM · Talent Development</div>
+    </div>
+  </div>
+  <div class="nav-pill">Free Resource</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Engineering Knowledge Series · Vol. 01</div>
+    <h1>Cleanroom <span>HVAC Design</span><br>Overview</h1>
+    <p class="hero-sub">A practical introduction to cleanroom HVAC systems — covering classification standards, airflow design principles, key engineering parameters, and real-world design considerations for Semiconductor, Pharmaceutical, and Data Center environments.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>By ZABU Asia Engineering</strong></div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item">25+ Years Industry Experience</div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item">Singapore MNC Consultancy Background</div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item"><strong>~12 min read</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- TOC -->
+  <div class="toc-card">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-grid">
+      <a href="#s1"><span class="toc-num">01</span> What is a Cleanroom?</a>
+      <a href="#s5"><span class="toc-num">05</span> HVAC System Architecture</a>
+      <a href="#s2"><span class="toc-num">02</span> ISO Classification Standards</a>
+      <a href="#s6"><span class="toc-num">06</span> Key Design Parameters</a>
+      <a href="#s3"><span class="toc-num">03</span> Why HVAC is Critical</a>
+      <a href="#s7"><span class="toc-num">07</span> Design Codes & Standards</a>
+      <a href="#s4"><span class="toc-num">04</span> Airflow Design Principles</a>
+      <a href="#s8"><span class="toc-num">08</span> Common Design Challenges</a>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>What is a Cleanroom?</h2>
+    </div>
+    <p>A cleanroom is a controlled environment designed to maintain extremely low levels of airborne particulates, microorganisms, and other contaminants. It achieves this through a combination of architectural design, pressurisation strategies, material selection, and — most critically — a precisely engineered HVAC (Heating, Ventilation and Air Conditioning) system.</p>
+    <p>Cleanrooms are not a single standard — they exist on a spectrum of cleanliness classifications, each with strict requirements on particle count, temperature, humidity, air change rates, and pressurisation. The environment must be continuously maintained and monitored.</p>
+
+    <div class="callout">
+      <div class="callout-label">Industry Context</div>
+      <p>Cleanrooms are the backbone of Singapore's three most critical high-technology industries: Semiconductor manufacturing, Pharmaceutical production, and increasingly, the mechanical rooms supporting hyperscale Data Centers. Understanding cleanroom HVAC is foundational to working in any of these sectors.</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-label">Primary Industries</div>
+        <div class="info-card-val">3 Sectors</div>
+        <div class="info-card-sub">Semiconductor · Pharma · Data Center</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Particle Size Controlled</div>
+        <div class="info-card-val">≥0.1 µm</div>
+        <div class="info-card-sub">Down to sub-micron in advanced fabs</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">HVAC Share of Cost</div>
+        <div class="info-card-val">40–60%</div>
+        <div class="info-card-sub">Of total cleanroom construction cost</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Operating Energy</div>
+        <div class="info-card-val">Up to 70%</div>
+        <div class="info-card-sub">Of facility's total energy consumption</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>ISO Classification Standards</h2>
+    </div>
+    <p>The international benchmark for cleanroom classification is <strong>ISO 14644-1</strong>, which replaced the older US Federal Standard 209E. It defines cleanliness classes based on the maximum allowable concentration of airborne particles of specific sizes per cubic metre of air.</p>
+
+    <table class="iso-table">
+      <thead>
+        <tr>
+          <th>ISO Class</th>
+          <th>≥0.1 µm /m³</th>
+          <th>≥0.5 µm /m³</th>
+          <th>≥5.0 µm /m³</th>
+          <th>Typical Applications</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="iso-class">ISO 1</span></td>
+          <td>10</td>
+          <td>—</td>
+          <td>—</td>
+          <td>Advanced R&D, EUV lithography</td>
+        </tr>
+        <tr>
+          <td><span class="iso-class">ISO 2</span></td>
+          <td>100</td>
+          <td>—</td>
+          <td>—</td>
+          <td>Semiconductor R&D</td>
+        </tr>
+        <tr>
+          <td><span class="iso-class">ISO 3</span></td>
+          <td>1,000</td>
+          <td>35</td>
+          <td>—</td>
+          <td>Semiconductor fabs — critical zones</td>
+        </tr>
+        <tr>
+          <td><span class="iso-class">ISO 4</span></td>
+          <td>10,000</td>
+          <td>352</td>
+          <td>—</td>
+          <td><span class="badge badge-semi">Semiconductor</span> — general fab floors</td>
+        </tr>
+        <tr>
+          <td><span class="iso-class">ISO 5</span></td>
+          <td>100,000</td>
+          <td>3,520</td>
+          <td>29</td>
+          <td><span class="badge badge-semi">Semiconductor</span> <span class="badge badge-pharma">Pharma Grade A/B</span></td>
+        </tr>
+        <tr>
+          <td><span class="iso-class">ISO 6</span></td>
+          <td>1,000,000</td>
+          <td>35,200</td>
+          <td>293</td>
+          <td><span class="badge badge-pharma">Pharma Grade C</span></td>
+        </tr>
+        <tr>
+          <td><span class="iso-class">ISO 7</span></td>
+          <td>—</td>
+          <td>352,000</td>
+          <td>2,930</td>
+          <td><span class="badge badge-pharma">Pharma Grade C/D</span> <span class="badge badge-dc">Data Center</span></td>
+        </tr>
+        <tr>
+          <td><span class="iso-class">ISO 8</span></td>
+          <td>—</td>
+          <td>3,520,000</td>
+          <td>29,300</td>
+          <td><span class="badge badge-pharma">Pharma Grade D</span> — packaging areas</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-info">
+      <div class="callout-label">💡 Singapore Context</div>
+      <p>Singapore's major semiconductor fabs (TSMC, Micron, GlobalFoundries, UMC) typically operate ISO Class 3–5 environments. Pharmaceutical facilities regulated by the Health Sciences Authority (HSA) align with EU GMP Annex 1 standards, which map to ISO 5–8 classifications.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Why HVAC is Critical in Cleanrooms</h2>
+    </div>
+    <p>In a standard commercial building, HVAC primarily controls thermal comfort. In a cleanroom, HVAC serves as the primary contamination control mechanism. It must simultaneously achieve multiple, often competing engineering objectives:</p>
+
+    <ul class="checklist">
+      <li><span class="check-dot">✓</span><div><strong>Particle removal</strong> — Continuous air filtration through HEPA/ULPA filters to dilute and exhaust airborne particles generated by people, equipment, and processes.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>Pressurisation control</strong> — Maintaining positive pressure differentials between zones to prevent cross-contamination and uncontrolled air infiltration.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>Temperature stability</strong> — Precise temperature control (often ±0.5°C or tighter) to prevent thermal expansion effects on precision semiconductor manufacturing tools.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>Humidity control</strong> — Controlling relative humidity to prevent electrostatic discharge (ESD) in electronics manufacturing or microbial growth in pharmaceutical environments.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>Airflow uniformity</strong> — Ensuring laminar or turbulent airflow patterns are consistent and predictable to prevent dead zones where particles accumulate.</div></li>
+      <li><span class="check-dot">✓</span><div><strong>Chemical exhaust management</strong> — Safe exhaust of process chemicals (acids, solvents, gases) used in semiconductor fabrication and pharmaceutical manufacturing.</div></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Airflow Design Principles</h2>
+    </div>
+    <p>There are two fundamental airflow regimes used in cleanroom HVAC design, and the choice between them is directly tied to the ISO classification target:</p>
+
+    <div class="param-grid">
+      <div class="param-block">
+        <div class="param-icon">🌊</div>
+        <div>
+          <div class="param-label">Unidirectional (Laminar) Flow</div>
+          <div class="param-val">ISO Class 1–5</div>
+          <div class="param-note">Air flows in parallel streams from ceiling HEPA/ULPA filter arrays down to raised floor grilles. Velocity typically 0.3–0.5 m/s. Used in critical process zones (wafer fab bays, filling lines).</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">🌀</div>
+        <div>
+          <div class="param-label">Non-Unidirectional (Turbulent) Flow</div>
+          <div class="param-val">ISO Class 6–8</div>
+          <div class="param-note">Air is mixed and diluted throughout the space using high-volume air change rates. More cost-effective, suitable for less critical zones, corridors, and gowning areas.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"In semiconductor fab design, the transition from non-unidirectional to unidirectional zones is one of the most critical interface points in the HVAC layout — getting it wrong can compromise the entire process environment."</p>
+      <cite>ZABU Asia Engineering — Field Experience Note</cite>
+    </div>
+
+    <p>Many real-world cleanrooms use a <strong>mixed approach</strong> — unidirectional flow over critical process tools (tool mini-environments or FOUPs in semiconductor fabs) combined with non-unidirectional background environments, reducing energy consumption significantly while protecting the critical zones.</p>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>HVAC System Architecture</h2>
+    </div>
+    <p>A typical cleanroom HVAC system for semiconductor or pharmaceutical applications comprises a chain of components working in series. Understanding each component's role is essential for both design and troubleshooting:</p>
+
+    <div class="flow-wrap">
+      <div style="font-size: 12px; font-weight: 700; color: var(--mid-gray); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">Typical Cleanroom Air Handling Flow Path</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-step-icon">🌬️</div>
+          <div class="flow-step-name">Outside Air Intake</div>
+          <div class="flow-step-sub">Pre-filtered OA</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-icon">❄️</div>
+          <div class="flow-step-name">MAU / AHU</div>
+          <div class="flow-step-sub">Cooling & dehumidification</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-icon">🔄</div>
+          <div class="flow-step-name">Recirculation AHU</div>
+          <div class="flow-step-sub">High-volume recirculation</div>
+        </div>
+        <div class="flow-step gold">
+          <div class="flow-step-icon">🧹</div>
+          <div class="flow-step-name">HEPA / ULPA</div>
+          <div class="flow-step-sub">Final filtration at ceiling</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-icon">🏭</div>
+          <div class="flow-step-name">Cleanroom Space</div>
+          <div class="flow-step-sub">Controlled environment</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-icon">↩️</div>
+          <div class="flow-step-name">Return / Exhaust</div>
+          <div class="flow-step-sub">Raised floor or low-wall</div>
+        </div>
+      </div>
+    </div>
+
+    <p><strong>Key system components explained:</strong></p>
+    <ul class="checklist">
+      <li><span class="check-dot">→</span><div><strong>MAU (Make-Up Air Unit)</strong> — Conditions 100% outside air for ventilation and pressurisation. Typically handles dehumidification, pre-cooling, and pre-heating before mixing with recirculated air.</div></li>
+      <li><span class="check-dot">→</span><div><strong>Recirculation AHU (RAHU)</strong> — Circulates large volumes of filtered air within the cleanroom to achieve the required air change rates. These units handle the bulk of the cooling load from process tools and lighting.</div></li>
+      <li><span class="check-dot">→</span><div><strong>HEPA Filters (H14)</strong> — High Efficiency Particulate Air filters capturing 99.995% of particles ≥0.3µm. Mounted in filter fan units (FFUs) or ceiling plenums directly above the cleanroom.</div></li>
+      <li><span class="check-dot">→</span><div><strong>ULPA Filters (U15/U16)</strong> — Ultra-Low Penetration Air filters for ISO Class 1–3. Captures 99.9995% of particles ≥0.12µm. Higher static pressure than HEPA — requires careful fan selection.</div></li>
+      <li><span class="check-dot">→</span><div><strong>Chilled Water System (CWS)</strong> — Provides cooling to the AHUs and process cooling equipment. Typical supply temperatures of 6–7°C chilled water for comfort, and lower for process applications.</div></li>
+      <li><span class="check-dot">→</span><div><strong>Process Exhaust System</strong> — Dedicated exhaust for hazardous chemicals, typically divided into acid exhaust, solvent exhaust, and general exhaust streams, each with separate treatment before atmospheric release.</div></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Key Design Parameters</h2>
+    </div>
+    <p>The following engineering parameters are the core inputs and outputs of any cleanroom HVAC design. Engineers must understand the relationships between these values and how changes in one parameter propagate through the entire system design.</p>
+
+    <div class="param-grid">
+      <div class="param-block">
+        <div class="param-icon">🌡️</div>
+        <div>
+          <div class="param-label">Temperature Setpoint</div>
+          <div class="param-val">21°C ± 0.5°C</div>
+          <div class="param-note">Typical semiconductor fab. Pharma may accept ±2°C. Tighter tolerances require larger HVAC systems.</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">💧</div>
+        <div>
+          <div class="param-label">Relative Humidity</div>
+          <div class="param-val">40–50% RH</div>
+          <div class="param-note">Semiconductor: low RH for ESD control. Pharma: controlled for microbial prevention. Singapore climate makes dehumidification a major energy load.</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">🔁</div>
+        <div>
+          <div class="param-label">Air Change Rate</div>
+          <div class="param-val">60–600+ ACH</div>
+          <div class="param-note">ISO 8: ~60 ACH. ISO 5: 250–600 ACH. ISO 3–4 semiconductor bays may exceed 600 ACH with unidirectional flow systems.</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">🔵</div>
+        <div>
+          <div class="param-label">Filter Coverage (HEPA)</div>
+          <div class="param-val">25–100%</div>
+          <div class="param-note">ISO 8: ~25% ceiling coverage. ISO 5: 100% HEPA ceiling. Percentage directly impacts construction and energy costs.</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">⬆️</div>
+        <div>
+          <div class="param-label">Room Pressurisation</div>
+          <div class="param-val">+12.5 Pa typical</div>
+          <div class="param-note">Positive pressure maintained relative to adjacent lower-class areas. Cascade pressure zoning is designed room by room across the facility.</div>
+        </div>
+      </div>
+      <div class="param-block">
+        <div class="param-icon">💨</div>
+        <div>
+          <div class="param-label">Unidirectional Velocity</div>
+          <div class="param-val">0.3–0.5 m/s</div>
+          <div class="param-note">Measured 150–300mm below the HEPA face. Below 0.3 m/s risks turbulence and particle accumulation; above 0.5 m/s increases energy costs.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      Air Change Rate (ACH) = (Supply Airflow Rate m³/hr) ÷ (Room Volume m³)
+      <small>Example: 10,000 m³/hr supply into a 100 m³ room = 100 ACH. Always verify against the ISO class target and particle balance calculation.</small>
+    </div>
+
+    <div class="formula-box">
+      HEPA Filter Coverage (%) = (Total Filter Face Area m²) ÷ (Cleanroom Ceiling Area m²) × 100
+      <small>For unidirectional flow zones targeting ISO 4–5, aim for 80–100% coverage. For turbulent zones (ISO 7–8), 25–35% is typical for new designs.</small>
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Design Codes & Standards</h2>
+    </div>
+    <p>Cleanroom HVAC design is governed by an overlapping set of international and local standards. Singapore engineers must be familiar with the applicable codes for their specific project type:</p>
+
+    <ul class="checklist">
+      <li><span class="check-dot">→</span><div><strong>ISO 14644-1/2</strong> — Classification of air cleanliness by particle concentration, and monitoring requirements. The primary global standard for all cleanroom classifications.</div></li>
+      <li><span class="check-dot">→</span><div><strong>ISO 14644-4</strong> — Design, construction and start-up of cleanrooms and associated controlled environments.</div></li>
+      <li><span class="check-dot">→</span><div><strong>EU GMP Annex 1 (2022 revised)</strong> — Manufacture of Sterile Medicinal Products. Critical for pharmaceutical cleanroom design in Singapore regulated by HSA. The 2022 revision significantly expanded HVAC and contamination control requirements.</div></li>
+      <li><span class="check-dot">→</span><div><strong>ASHRAE 170</strong> — Ventilation of Health Care Facilities. Referenced for pharmaceutical sterile manufacturing environments and hospital cleanrooms.</div></li>
+      <li><span class="check-dot">→</span><div><strong>SEMI S2 / S14</strong> — Environmental, health, and safety guidelines for semiconductor manufacturing equipment. Governs exhaust system design and chemical safety.</div></li>
+      <li><span class="check-dot">→</span><div><strong>SS 553 (Singapore Standard)</strong> — Code of Practice for Air-Conditioning and Mechanical Ventilation in Buildings. The Singapore baseline ACMV standard applicable to all building projects including cleanroom facilities.</div></li>
+      <li><span class="check-dot">→</span><div><strong>BCA Green Mark</strong> — Singapore's building energy rating system. Cleanroom energy efficiency design increasingly required to meet Green Mark requirements for new facilities.</div></li>
+    </ul>
+
+    <div class="callout-info">
+      <div class="callout-label">💡 Note for Engineers</div>
+      <p>In Singapore's MNC project environment, you will typically encounter a hierarchy of standards — the MNC client's own internal engineering standards take precedence, followed by the applicable international standards (ISO/ASHRAE/SEMI), and finally the Singapore local codes (SS 553, BCA). Understanding how to navigate conflicts between these layers is a key practical skill.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Common Design Challenges</h2>
+    </div>
+    <p>Cleanroom HVAC design involves solving a set of recurring engineering challenges that are rarely covered in academic curricula but are critical in real project delivery:</p>
+
+    <ul class="checklist">
+      <li><span class="check-dot">!</span><div><strong>Process heat load uncertainty</strong> — Semiconductor process tools can have highly variable heat loads. Designing for peak loads is expensive; designing too lean risks thermal upsets. Dynamic load profiling and spare cooling capacity strategy is critical.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Dehumidification in tropical climates</strong> — Singapore's year-round high humidity makes latent load management a dominant design challenge. MAU sizing, chilled water temperatures, and reheat coil design must be carefully coordinated.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Pressurisation cascading</strong> — Maintaining correct pressure differentials across 10–30+ zones simultaneously while managing variable exhaust and supply airflows is a complex control engineering challenge.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Construction phasing and contamination</strong> — Cleanrooms are often built in phases while adjacent areas remain operational. Managing construction contamination risks to live cleanroom zones requires careful HVAC zoning strategies during construction.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Energy vs. cleanliness trade-off</strong> — Achieving ISO Class 3–4 is extremely energy-intensive. Innovative strategies like variable air volume (VAV) systems, occupancy-based ACH reduction, and FFU speed control are increasingly used to reduce energy consumption without compromising cleanliness.</div></li>
+      <li><span class="check-dot">!</span><div><strong>Vibration and acoustic control</strong> — High-volume air circulation systems generate significant vibration and noise. Precision semiconductor tools have strict vibration criteria (VC-A to VC-E curves), requiring careful isolation of HVAC equipment and ductwork.</div></li>
+    </ul>
+
+    <div class="callout">
+      <div class="callout-label">From the Field</div>
+      <p>Many of these challenges are not visible in design drawings — they emerge during commissioning and qualification. Engineers who have lived through cleanroom construction projects understand that the gap between design intent and operational reality is where the real learning happens.</p>
+    </div>
+  </div>
+
+  <!-- SOCIAL SHARE NOTE -->
+  <div style="background: var(--white); border: 1px solid #DDE2ED; border-radius: 10px; padding: 1.5rem 2rem; margin: 2.5rem 0; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="font-size: 24px;">📢</div>
+    <div>
+      <div style="font-weight: 700; color: var(--navy); margin-bottom: 4px; font-size: 0.95rem;">Found this useful?</div>
+      <p style="font-size: 0.9rem; margin: 0; color: var(--text-body);">Share this article with fellow engineers on LinkedIn or Facebook. Follow ZABU Asia Engineering Solutions for more free engineering content covering Semiconductor, Pharmaceutical, Data Center, Cleanroom, and HVAC systems — posted regularly to help Singapore engineers grow.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h3>Ready to go <span>deeper</span>?</h3>
+    <p>Our face-to-face engineering training classes in Singapore cover Cleanroom HVAC Design in detail — calculations, sizing, real project case studies, and Singapore codes. Led by engineers with 25+ years of MNC project experience.</p>
+    <div class="cta-pills">
+      <a href="mailto:contact@zabu-asia.com" class="cta-pill">📧 Enquire About Training</a>
+      <a href="https://www.linkedin.com/company/zabu-asia-solutions" class="cta-pill outline" target="_blank">Follow on LinkedIn</a>
+      <a href="https://www.facebook.com/zabu.asia.engineering" class="cta-pill outline" target="_blank">Follow on Facebook</a>
+    </div>
+    <p style="margin-top: 1.5rem; font-size: 12px; color: rgba(255,255,255,0.4);">ZABU Asia Engineering Solutions · contact@zabu-asia.com · Singapore</p>
+  </div>
+
+</div>
+
+<div class="brand-footer">
+  © 2025 <strong>ZABU Asia Engineering Solutions</strong>. All rights reserved. · Free Engineering Knowledge Series · contact@zabu-asia.com
+</div>
+
+</body>
+</html>
