@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharmaceutical GMP HVAC Requirements — EU Annex 1 | ZABU Asia Engineering Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B3E;
+    --navy-mid: #162A5C;
+    --navy-light: #1E3A7A;
+    --gold: #F5A623;
+    --gold-light: #FBCC73;
+    --gold-dark: #C47F10;
+    --white: #FFFFFF;
+    --off-white: #F7F8FA;
+    --light-gray: #EEF0F4;
+    --mid-gray: #8A93A8;
+    --text-body: #3A4260;
+    --green: #1a6b52;
+    --green-bg: rgba(26,107,82,0.10);
+    --red: #8B2020;
+    --red-bg: rgba(139,32,32,0.08);
+    --blue: #1a4480;
+    --blue-bg: rgba(26,68,128,0.08);
+    --purple: #4a1a80;
+    --purple-bg: rgba(74,26,128,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Barlow", sans-serif; background: var(--off-white); color: var(--text-body); line-height: 1.7; }
+  nav { background: var(--navy); padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-logo-circle { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 13px; color: var(--gold); }
+  .nav-title { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; color: var(--white); line-height: 1.2; }
+  .nav-title span { color: var(--gold); }
+  .nav-tag { font-size: 11px; color: var(--mid-gray); letter-spacing: 1px; text-transform: uppercase; }
+  .nav-pill { background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .hero { background: var(--navy); color: var(--white); padding: 5rem 2.5rem 4rem; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; border: 60px solid rgba(245,166,35,0.08); }
+  .hero::after { content: ""; position: absolute; bottom: -60px; left: 30%; width: 250px; height: 250px; border-radius: 50%; border: 40px solid rgba(245,166,35,0.05); }
+  .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .vol-badge { display: inline-block; background: var(--gold); color: var(--navy); font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 12px; padding: 4px 12px; border-radius: 4px; letter-spacing: 1px; margin-bottom: 1rem; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.4); color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; margin-bottom: 1.5rem; }
+  .hero-tag::before { content: ""; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+  .hero h1 { font-family: "Barlow Condensed", sans-serif; font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.2rem; }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.72); max-width: 640px; margin-bottom: 2rem; line-height: 1.7; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); }
+  .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.6); }
+  .hero-meta-item strong { color: var(--white); font-weight: 600; }
+  .meta-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+  .page-body { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .series-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 3rem; }
+  .series-card { background: var(--white); border: 1px solid #DDE2ED; border-radius: 10px; padding: 1rem 1.2rem; text-decoration: none; }
+  .series-card.active { border-color: var(--gold); border-left: 4px solid var(--gold); }
+  .series-card-vol { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 4px; }
+  .series-card-title { font-size: 13px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .series-card-status { font-size: 11px; color: var(--mid-gray); margin-top: 4px; }
+  .toc-card { background: var(--white); border: 1px solid #DDE2ED; border-left: 4px solid var(--gold); border-radius: 10px; padding: 1.5rem 2rem; margin-bottom: 3rem; }
+  .toc-title { font-family: "Barlow Condensed", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 1rem; }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 2rem; }
+  .toc-grid a { font-size: 14px; color: var(--navy-mid); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+  .toc-grid a:hover { color: var(--gold-dark); }
+  .toc-num { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 12px; color: var(--gold); min-width: 20px; }
+  .section { margin-bottom: 3.5rem; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--light-gray); }
+  .section-num { font-family: "Barlow Condensed", sans-serif; font-size: 13px; font-weight: 800; color: var(--gold); background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.3); padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+  .section h2 { font-family: "Barlow Condensed", sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--navy); }
+  .section p { margin-bottom: 1rem; font-size: 0.97rem; }
+  .callout { background: var(--navy); color: var(--white); border-radius: 10px; padding: 1.5rem 2rem; margin: 1.5rem 0; position: relative; overflow: hidden; }
+  .callout::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .callout p { font-size: 0.95rem; color: rgba(255,255,255,0.85); margin: 0; }
+  .callout-info { background: rgba(245,166,35,0.07); border: 1px solid rgba(245,166,35,0.25); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .callout-info .callout-label { color: var(--gold-dark); }
+  .callout-info p { color: var(--text-body); margin: 0; font-size: 0.94rem; }
+  .callout-warn { background: var(--red-bg); border: 1px solid rgba(139,32,32,0.2); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .callout-warn .callout-label { color: var(--red); }
+  .callout-warn p { color: var(--text-body); margin: 0; font-size: 0.94rem; }
+  .callout-blue { background: var(--blue-bg); border: 1px solid rgba(26,68,128,0.2); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .callout-blue .callout-label { color: var(--blue); }
+  .callout-blue p { color: var(--text-body); margin: 0; font-size: 0.94rem; }
+  .callout-green { background: var(--green-bg); border: 1px solid rgba(26,107,82,0.25); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .callout-green .callout-label { color: var(--green); }
+  .callout-green p { color: var(--text-body); margin: 0; font-size: 0.94rem; }
+  .callout-purple { background: var(--purple-bg); border: 1px solid rgba(74,26,128,0.2); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .callout-purple .callout-label { color: var(--purple); }
+  .callout-purple p { color: var(--text-body); margin: 0; font-size: 0.94rem; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .info-card { background: var(--white); border: 1px solid #DDE2ED; border-top: 3px solid var(--gold); border-radius: 10px; padding: 1.25rem 1.2rem; }
+  .info-card-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 0.5rem; }
+  .info-card-val { font-family: "Barlow Condensed", sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--navy); line-height: 1.2; }
+  .info-card-sub { font-size: 12px; color: var(--mid-gray); margin-top: 4px; }
+  .grade-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 1.5rem 0; background: var(--white); border-radius: 10px; overflow: hidden; border: 1px solid #DDE2ED; }
+  .grade-table th { background: var(--navy); color: var(--white); padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .grade-table th:first-child { color: var(--gold); }
+  .grade-table td { padding: 10px 14px; border-bottom: 1px solid #EEF0F4; color: var(--text-body); font-size: 13px; vertical-align: top; }
+  .grade-table tr:last-child td { border-bottom: none; }
+  .grade-table tr:nth-child(even) td { background: #FAFBFC; }
+  .grade-name { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 1.3rem; }
+  .grade-a { color: #8B2020; } .grade-b { color: #1a4480; } .grade-c { color: #1a6b52; } .grade-d { color: #7A4800; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .badge-critical { background: var(--red-bg); color: var(--red); }
+  .badge-high { background: var(--blue-bg); color: var(--blue); }
+  .badge-med { background: rgba(245,166,35,0.15); color: var(--gold-dark); }
+  .badge-low { background: var(--green-bg); color: var(--green); }
+  .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .compare-card { background: var(--white); border: 1px solid #DDE2ED; border-radius: 10px; overflow: hidden; }
+  .compare-card-header { padding: 12px 16px; }
+  .compare-card-title { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); }
+  .compare-card-sub { font-size: 11px; color: rgba(255,255,255,0.55); }
+  .compare-card-body { padding: 1rem 1.2rem; }
+  .compare-item { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid var(--light-gray); font-size: 13px; }
+  .compare-item:last-child { border-bottom: none; }
+  .compare-key { color: var(--mid-gray); }
+  .compare-val { font-weight: 700; color: var(--navy); font-family: "Barlow Condensed", sans-serif; font-size: 14px; }
+  .checklist { list-style: none; margin: 1rem 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--light-gray); font-size: 0.94rem; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-dot { width: 20px; height: 20px; min-width: 20px; background: rgba(245,166,35,0.15); border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold-dark); font-weight: 700; margin-top: 2px; }
+  .check-dot-warn { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+  .pull-quote { border-left: 4px solid var(--gold); padding: 1rem 1.5rem; margin: 1.5rem 0; background: rgba(245,166,35,0.05); border-radius: 0 8px 8px 0; }
+  .pull-quote p { font-family: "Source Serif 4", serif; font-size: 1.05rem; font-style: italic; color: var(--navy); margin: 0; }
+  .pull-quote cite { display: block; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--gold-dark); letter-spacing: 1px; text-transform: uppercase; font-style: normal; }
+  .flow-row { display: flex; align-items: stretch; gap: 0; margin: 1.5rem 0; overflow-x: auto; }
+  .flow-step { background: var(--navy); color: var(--white); padding: 1rem 1.2rem; flex: 1; min-width: 110px; position: relative; }
+  .flow-step::after { content: "B6"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 16px; z-index: 2; }
+  .flow-step:last-child::after { display: none; }
+  .flow-step-num { font-family: "Barlow Condensed", sans-serif; font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .flow-step-title { font-family: "Barlow Condensed", sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 4px; }
+  .flow-step-sub { font-size: 11px; color: rgba(255,255,255,0.55); }
+  .flow-step:nth-child(even) { background: var(--navy-mid); }
+  .flow-step-grade { background: rgba(245,166,35,0.15); font-size: 10px; font-weight: 700; color: var(--gold); padding: 2px 8px; border-radius: 20px; display: inline-block; margin-top: 6px; letter-spacing: 0.5px; }
+  .example-wrap { background: var(--white); border: 1px solid #DDE2ED; border-radius: 12px; overflow: hidden; margin: 1.5rem 0; }
+  .example-header { background: var(--navy); padding: 1rem 1.5rem; }
+  .example-header-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .example-header-title { font-family: "Barlow Condensed", sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--white); }
+  .example-body { padding: 1.5rem; }
+  .example-step { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--light-gray); align-items: flex-start; }
+  .example-step:last-child { border-bottom: none; }
+  .step-num { font-family: "Barlow Condensed", sans-serif; font-size: 13px; font-weight: 800; color: var(--white); background: var(--navy); width: 28px; height: 28px; min-width: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .step-label { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .step-calc { font-family: "Barlow Condensed", sans-serif; font-size: 1rem; color: var(--navy-mid); font-weight: 600; }
+  .step-result { font-family: "Barlow Condensed", sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--gold-dark); }
+  .step-note { font-size: 12px; color: var(--mid-gray); margin-top: 2px; }
+  .change-box { background: var(--white); border: 1px solid #DDE2ED; border-radius: 10px; overflow: hidden; margin: 1rem 0; }
+  .change-box-header { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--light-gray); border-bottom: 1px solid #DDE2ED; }
+  .change-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .change-tag-new { background: var(--red-bg); color: var(--red); }
+  .change-tag-updated { background: rgba(245,166,35,0.2); color: var(--gold-dark); }
+  .change-box-title { font-size: 13px; font-weight: 700; color: var(--navy); }
+  .change-box-body { padding: 10px 16px; font-size: 13px; color: var(--text-body); line-height: 1.6; }
+  .cta-section { background: var(--navy); color: var(--white); border-radius: 14px; padding: 3rem 2.5rem; text-align: center; margin-top: 4rem; position: relative; overflow: hidden; }
+  .cta-section::before { content: ""; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; border: 30px solid rgba(245,166,35,0.1); }
+  .cta-section h3 { font-family: "Barlow Condensed", sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 0.8rem; }
+  .cta-section h3 span { color: var(--gold); }
+  .cta-section p { color: rgba(255,255,255,0.7); font-size: 0.97rem; max-width: 500px; margin: 0 auto 2rem; }
+  .cta-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .cta-pill { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 6px; text-decoration: none; }
+  .cta-pill.outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.3); }
+  .brand-footer { text-align: center; padding: 2rem 1rem; font-size: 12px; color: var(--mid-gray); }
+  .brand-footer strong { color: var(--navy); }
+  @media (max-width: 640px) {
+    nav { padding: 0 1.2rem; } .hero { padding: 3.5rem 1.2rem 3rem; } .page-body { padding: 2rem 1.2rem 4rem; }
+    .series-nav { grid-template-columns: repeat(2, 1fr); } .toc-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 2rem 1.2rem; } .flow-row { flex-direction: column; } .flow-step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo-circle">ZABU</div>
+    <div>
+      <div class="nav-title">ZABU <span>ASIA</span> Engineering Solutions</div>
+      <div class="nav-tag">Mission Critical Engineering · EPCM · Talent Development</div>
+    </div>
+  </div>
+  <div class="nav-pill">Free Resource</div>
+</nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="vol-badge">VOL. 04 — Engineering Knowledge Series</div>
+    <div class="hero-tag">Pharmaceutical HVAC · GMP Compliance · Singapore HSA</div>
+    <h1>Pharmaceutical <span>GMP HVAC</span><br>Requirements — EU Annex 1 (2022)</h1>
+    <p class="hero-sub">Every tablet, injectable, and vaccine produced in Singapore must be manufactured in a facility whose HVAC systems meet EU GMP Annex 1. The 2022 revision introduced significant changes that every pharmaceutical HVAC engineer must understand. This article explains what changed, why it matters, and what it means for engineering practice in Singapore.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>By ZABU Asia Engineering</strong></div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item">25+ Years Industry Experience</div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item">Singapore MNC Consultancy Background</div>
+      <div class="meta-dot"></div>
+      <div class="hero-meta-item"><strong>~18 min read</strong></div>
+    </div>
+  </div>
+</div>
+<div class="page-body">
+  <div class="series-nav">
+    <div class="series-card"><div class="series-card-vol">Vol. 01</div><div class="series-card-title">Cleanroom HVAC Design Overview</div><div class="series-card-status">&#x2705; Published</div></div>
+    <div class="series-card"><div class="series-card-vol">Vol. 02</div><div class="series-card-title">Pressurisation &amp; Cascade Zoning</div><div class="series-card-status">&#x2705; Published</div></div>
+    <div class="series-card"><div class="series-card-vol">Vol. 03</div><div class="series-card-title">HVAC Load Calculation Basics</div><div class="series-card-status">&#x2705; Published</div></div>
+    <div class="series-card active"><div class="series-card-vol">Vol. 04 — You are here</div><div class="series-card-title">Pharmaceutical GMP HVAC — EU Annex 1</div><div class="series-card-status">&#x1F4D6; Current article</div></div>
+  </div>
+  <div class="toc-card">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-grid">
+      <a href="#s1"><span class="toc-num">01</span> Why GMP Governs HVAC Engineering</a>
+      <a href="#s5"><span class="toc-num">05</span> Contamination Control Strategy (CCS)</a>
+      <a href="#s2"><span class="toc-num">02</span> EU GMP Annex 1 (2022) — What Changed</a>
+      <a href="#s6"><span class="toc-num">06</span> Unidirectional Airflow Zone Design</a>
+      <a href="#s3"><span class="toc-num">03</span> Cleanroom Grade Classification A–D</a>
+      <a href="#s7"><span class="toc-num">07</span> Key HVAC Design Parameters by Grade</a>
+      <a href="#s4"><span class="toc-num">04</span> HVAC Requirements Per Grade</a>
+      <a href="#s8"><span class="toc-num">08</span> Common GMP HVAC Design Mistakes</a>
+    </div>
+  </div>
+
+  <div class="section" id="s1">
+    <div class="section-header"><span class="section-num">01</span><h2>Why GMP Governs HVAC Engineering</h2></div>
+    <p>In pharmaceutical manufacturing, the building environment is not a backdrop — it is part of the product quality system. Temperature, humidity, air cleanliness, pressurisation, and airflow patterns all directly affect whether the medicine produced inside is safe and effective for the patient at the end of the supply chain.</p>
+    <p>This is the principle that makes pharmaceutical HVAC engineering fundamentally different from any other building type. A substandard HVAC system in an office creates discomfort. A substandard HVAC system in a sterile injectable facility can contaminate an entire batch of medicine and harm patients. The engineer who designed it bears a direct responsibility for that outcome.</p>
+    <p>Good Manufacturing Practice (GMP) is the regulatory framework that codifies this responsibility into enforceable engineering requirements. In Singapore, GMP compliance is enforced by the Health Sciences Authority (HSA). Singapore aligns with the EU GMP framework — considered the world's most stringent pharmaceutical manufacturing standard.</p>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-card-label">Regulatory Authority</div><div class="info-card-val">HSA</div><div class="info-card-sub">Health Sciences Authority — Singapore's GMP enforcement body</div></div>
+      <div class="info-card"><div class="info-card-label">Primary Standard</div><div class="info-card-val">EU GMP</div><div class="info-card-sub">Annex 1 governs sterile pharmaceutical manufacturing HVAC</div></div>
+      <div class="info-card"><div class="info-card-label">Latest Revision</div><div class="info-card-val">2022</div><div class="info-card-sub">Significant changes from 2008 — engineers must update their knowledge</div></div>
+      <div class="info-card"><div class="info-card-label">Singapore Alignment</div><div class="info-card-val">Full</div><div class="info-card-sub">HSA has adopted the 2022 Annex 1 requirements</div></div>
+    </div>
+    <div class="callout">
+      <div class="callout-label">The Engineering Responsibility</div>
+      <p>Every HVAC design decision on a pharmaceutical project — the temperature setpoint, the air change rate, the pressure differential between zones, the filter specification — must be documented, justified, and formally approved as part of the facility's quality system. An engineer who makes an undocumented design assumption on a pharmaceutical project is not just being careless. They are violating GMP. This is why pharmaceutical HVAC engineering demands a higher standard of rigour than any other building type.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="section-header"><span class="section-num">02</span><h2>EU GMP Annex 1 (2022) — What Changed</h2></div>
+    <p>The 2022 revision was the most significant update to pharmaceutical HVAC requirements in over 14 years. Engineers who qualified under the 2008 edition and have not reviewed the changes are working with outdated knowledge. Here are the most important changes that affect HVAC engineering directly.</p>
+    <div class="change-box">
+      <div class="change-box-header"><span class="change-tag change-tag-new">NEW REQUIREMENT</span><span class="change-box-title">Contamination Control Strategy (CCS) — Now Mandatory</span></div>
+      <div class="change-box-body">The 2022 revision introduces the CCS as a site-wide, documented strategy that systematically identifies all contamination risks — microbiological, particulate, and cross-contamination — and describes the engineering controls used to manage each risk. HVAC design decisions must now be explicitly traceable to the CCS. The CCS must be maintained as a living document throughout the facility's operational life. This is a major departure from the 2008 approach where compliance was demonstrated through individual system qualification rather than a holistic risk-based strategy.</div>
+    </div>
+    <div class="change-box">
+      <div class="change-box-header"><span class="change-tag change-tag-updated">SIGNIFICANTLY UPDATED</span><span class="change-box-title">HVAC System Classification and Monitoring Requirements</span></div>
+      <div class="change-box-body">The 2022 revision significantly expanded requirements for continuous HVAC monitoring in Grade A and B environments. Environmental Monitoring Systems (EMS) must be risk-assessed, validated, and linked to the CCS. Alert and action limits must be justified against the CCS rather than set to historical baseline values. The requirement for continuous airborne particle monitoring in Grade A zones during all operations has been reinforced and clarified.</div>
+    </div>
+    <div class="change-box">
+      <div class="change-box-header"><span class="change-tag change-tag-new">NEW REQUIREMENT</span><span class="change-box-title">Barrier Technology Prioritisation for Grade A Zones</span></div>
+      <div class="change-box-body">The 2022 revision introduces a hierarchy for contamination control in Grade A zones. RABS (Restricted Access Barrier Systems) and isolators are now explicitly preferred over open Grade A zones. Where open Grade A zones are used, they must be formally justified with risk assessment documentation. This pushes pharmaceutical HVAC engineers toward designing integrated RABS and isolator systems rather than simply designing Grade A rooms with conventional unidirectional airflow.</div>
+    </div>
+    <div class="change-box">
+      <div class="change-box-header"><span class="change-tag change-tag-updated">UPDATED</span><span class="change-box-title">Pressure Differential Monitoring — Continuous Real-Time Required</span></div>
+      <div class="change-box-body">The 2022 revision clarifies that pressure differentials between classified zones must be continuously monitored and alarmed in real time. Periodic manual pressure readings are no longer sufficient for Grade A/B/C zones. Building Management Systems (BMS) must be designed to capture, log, and alarm pressure differential data continuously. This has direct implications for sensor placement, BMS design, and alarm management specifications.</div>
+    </div>
+    <div class="callout-warn">
+      <div class="callout-label">&#x26A0;&#xFE0F; Important for Singapore Engineers</div>
+      <p>HSA has aligned with the 2022 revision. New pharmaceutical facility projects submitted for GMP approval in Singapore are assessed against the 2022 Annex 1 requirements. If your HVAC design documentation still references the 2008 edition as the basis of design, it will require revision before regulatory submission. This is not a future requirement — it is current practice.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="section-header"><span class="section-num">03</span><h2>Cleanroom Grade Classification A–D</h2></div>
+    <p>EU GMP Annex 1 classifies pharmaceutical cleanrooms into four grades: A, B, C, and D. Each grade specifies the maximum permissible airborne particle concentration — both at-rest (no operators or production activity) and in-operation (during normal production). The HVAC system is the primary engineering means of achieving and maintaining the required grade.</p>
+    <div class="pull-quote">
+      <p>The grade classification system is not a certificate — it is a continuous engineering achievement. A Grade A zone exists only as long as the HVAC system maintains it. The moment HVAC fails or a critical parameter drifts out of specification, the grade is lost, production must stop, and an investigation must begin.</p>
+      <cite>ZABU Asia Engineering — Project Experience</cite>
+    </div>
+    <table class="grade-table">
+      <thead>
+        <tr><th>Grade</th><th>ISO Equivalent</th><th>At-Rest &#x2265;0.5&#x03BC;m (particles/m&#xB3;)</th><th>In-Operation &#x2265;0.5&#x03BC;m (particles/m&#xB3;)</th><th>Typical Operations</th><th>Criticality</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="grade-name grade-a">A</span></td><td>ISO Class 5</td><td>&#x2264;3,520</td><td>&#x2264;3,520</td><td>Aseptic filling, stopper placement, open vials/ampoules, open containers under direct product exposure</td><td><span class="badge badge-critical">Maximum</span></td></tr>
+        <tr><td><span class="grade-name grade-b">B</span></td><td>ISO Class 5</td><td>&#x2264;3,520</td><td>&#x2264;352,000</td><td>Background environment surrounding Grade A zone during aseptic preparation and filling</td><td><span class="badge badge-high">Very High</span></td></tr>
+        <tr><td><span class="grade-name grade-c">C</span></td><td>ISO Class 7</td><td>&#x2264;352,000</td><td>&#x2264;3,520,000</td><td>Preparation of solutions to be sterile filtered, filling of products for terminal sterilisation</td><td><span class="badge badge-med">High</span></td></tr>
+        <tr><td><span class="grade-name grade-d">D</span></td><td>ISO Class 8</td><td>&#x2264;3,520,000</td><td>Not defined</td><td>Handling of components after washing, preparation of materials, gowning areas</td><td><span class="badge badge-low">Standard</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout-info">
+      <div class="callout-label">&#x1F4A1; The At-Rest / In-Operation Distinction</div>
+      <p>The at-rest condition is measured with no personnel present — it demonstrates the HVAC system's inherent cleaning capability. The in-operation condition is measured during normal production with full personnel occupancy. For Grade B, this differential is significant (3,520 vs 352,000) — which is why operator gowning and behaviour control are as important as HVAC design in Grade B environments.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-header"><span class="section-num">04</span><h2>HVAC Requirements Per Grade</h2></div>
+    <p>Each grade imposes specific HVAC engineering requirements. These are not suggestions — they are design parameters that must be achieved, verified through IQ/OQ/PQ, and maintained throughout the operational life of the facility.</p>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-card-header" style="background:#8B2020;"><div class="compare-card-title">GRADE A</div><div class="compare-card-sub">ISO Class 5 — Maximum Criticality</div></div>
+        <div class="compare-card-body">
+          <div class="compare-item"><span class="compare-key">Airflow type</span><span class="compare-val">Unidirectional</span></div>
+          <div class="compare-item"><span class="compare-key">Velocity (HEPA face)</span><span class="compare-val">0.36–0.54 m/s</span></div>
+          <div class="compare-item"><span class="compare-key">Temperature</span><span class="compare-val">As defined in CCS</span></div>
+          <div class="compare-item"><span class="compare-key">Particle monitoring</span><span class="compare-val">Continuous, real-time</span></div>
+          <div class="compare-item"><span class="compare-key">Preferred protection</span><span class="compare-val">Isolator / RABS</span></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-header" style="background:#1E3A7A;"><div class="compare-card-title">GRADE B</div><div class="compare-card-sub">ISO Class 5 — Background to Grade A</div></div>
+        <div class="compare-card-body">
+          <div class="compare-item"><span class="compare-key">Airflow type</span><span class="compare-val">Non-unidirectional</span></div>
+          <div class="compare-item"><span class="compare-key">ACH guideline</span><span class="compare-val">&gt;20–40 ACH</span></div>
+          <div class="compare-item"><span class="compare-key">HEPA coverage</span><span class="compare-val">50–100%</span></div>
+          <div class="compare-item"><span class="compare-key">Particle monitoring</span><span class="compare-val">Continuous required</span></div>
+          <div class="compare-item"><span class="compare-key">Pressure to Grade C</span><span class="compare-val">+12.5 Pa min</span></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-header" style="background:#1a6b52;"><div class="compare-card-title">GRADE C</div><div class="compare-card-sub">ISO Class 7 — Less Critical Sterile</div></div>
+        <div class="compare-card-body">
+          <div class="compare-item"><span class="compare-key">Airflow type</span><span class="compare-val">Non-unidirectional</span></div>
+          <div class="compare-item"><span class="compare-key">ACH typical</span><span class="compare-val">20–40 ACH</span></div>
+          <div class="compare-item"><span class="compare-key">Temperature</span><span class="compare-val">Typically 18–20&#xB0;C</span></div>
+          <div class="compare-item"><span class="compare-key">RH</span><span class="compare-val">Typically 30–60%</span></div>
+          <div class="compare-item"><span class="compare-key">Pressure to Grade D</span><span class="compare-val">+12.5 Pa min</span></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-header" style="background:#7A4800;"><div class="compare-card-title">GRADE D</div><div class="compare-card-sub">ISO Class 8 — Component Handling</div></div>
+        <div class="compare-card-body">
+          <div class="compare-item"><span class="compare-key">Airflow type</span><span class="compare-val">Non-unidirectional</span></div>
+          <div class="compare-item"><span class="compare-key">ACH typical</span><span class="compare-val">5–20 ACH</span></div>
+          <div class="compare-item"><span class="compare-key">Temperature</span><span class="compare-val">Typically 18–24&#xB0;C</span></div>
+          <div class="compare-item"><span class="compare-key">RH</span><span class="compare-val">Typically 30–65%</span></div>
+          <div class="compare-item"><span class="compare-key">Pressure to corridor</span><span class="compare-val">+10–15 Pa typical</span></div>
+        </div>
+      </div>
+    </div>
+    <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--navy);margin:2rem 0 1rem;">Pressure Cascade — Grade A to Unclassified</h3>
+    <p>One of the most critical HVAC requirements in a sterile facility is the continuous positive pressure cascade from the cleanest zone through each grade to the building exterior. A minimum differential of +12.5 Pa must be maintained between adjacent classified zones at all times, including during door operations and material transfers.</p>
+    <div class="flow-row">
+      <div class="flow-step"><div class="flow-step-num">Zone 1</div><div class="flow-step-title">Grade A / RABS</div><div class="flow-step-sub">Highest positive pressure</div><div class="flow-step-grade">+45–60 Pa above corridor</div></div>
+      <div class="flow-step"><div class="flow-step-num">Zone 2</div><div class="flow-step-title">Grade B Room</div><div class="flow-step-sub">Background to Grade A</div><div class="flow-step-grade">+30–45 Pa above corridor</div></div>
+      <div class="flow-step"><div class="flow-step-num">Zone 3</div><div class="flow-step-title">Grade C Room</div><div class="flow-step-sub">Less critical sterile</div><div class="flow-step-grade">+15–25 Pa above corridor</div></div>
+      <div class="flow-step"><div class="flow-step-num">Zone 4</div><div class="flow-step-title">Grade D / Gowning</div><div class="flow-step-sub">Component handling</div><div class="flow-step-grade">+10–15 Pa above corridor</div></div>
+      <div class="flow-step"><div class="flow-step-num">Zone 5</div><div class="flow-step-title">Corridor</div><div class="flow-step-sub">Reference baseline</div><div class="flow-step-grade">Reference (0 Pa)</div></div>
+    </div>
+    <div class="callout-warn">
+      <div class="callout-label">&#x26A0;&#xFE0F; Dynamic Pressure Performance Must Be Validated</div>
+      <p>EU GMP Annex 1 (2022) requires pressure differentials to be maintained dynamically — during door openings, material transfers, and all normal production operations. Designing a pressure cascade that achieves +12.5 Pa only under static conditions and loses it the moment a door opens is a GMP non-compliance. Dynamic pressure performance must be verified during qualification, not assumed at the design stage.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-header"><span class="section-num">05</span><h2>Contamination Control Strategy (CCS)</h2></div>
+    <p>The Contamination Control Strategy is the most significant new requirement introduced by EU GMP Annex 1 (2022). It transforms pharmaceutical contamination management from a collection of individual system specifications into a comprehensive, risk-based engineering and operational framework.</p>
+    <p>For HVAC engineers, the CCS is not a document created by quality professionals after the design is complete — it must be developed alongside the HVAC design from the earliest project phase. Engineering decisions made without reference to the CCS risk non-compliance during regulatory inspection.</p>
+    <div class="callout">
+      <div class="callout-label">What the CCS Must Address</div>
+      <p>The CCS must systematically identify and address contamination risks across three categories: microbiological contamination (bacteria, fungi, endotoxins), particulate contamination (inert particles affecting product quality), and cross-contamination (transfer of one product into another). For each identified risk, the CCS must describe the engineering control, the process control, and the monitoring strategy — and demonstrate that the combination of controls is sufficient to protect product quality and patient safety.</p>
+    </div>
+    <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--navy);margin:2rem 0 1rem;">HVAC Design Decisions Traceable to the CCS</h3>
+    <ul class="checklist">
+      <li><span class="check-dot">&#x2713;</span><div><strong>Air change rate selection</strong> — The ACH chosen for each classified zone must be justified against the contamination risks identified in the CCS for that zone.</div></li>
+      <li><span class="check-dot">&#x2713;</span><div><strong>Pressure differential strategy</strong> — Pressure differentials must be justified based on contamination risks at each zone boundary, not simply set to a standard +12.5 Pa across the board.</div></li>
+      <li><span class="check-dot">&#x2713;</span><div><strong>Temperature and humidity setpoints</strong> — Setpoints must be justified based on product stability requirements, personnel gowning comfort, and microbiological growth suppression.</div></li>
+      <li><span class="check-dot">&#x2713;</span><div><strong>Filtration specification</strong> — The filter grade at each stage must be justified against the particulate contamination risk. HEPA H14 may be required at the terminal filter for Grade A/B; H13 may be justified for Grade C or D.</div></li>
+      <li><span class="check-dot">&#x2713;</span><div><strong>Barrier technology selection</strong> — The choice between open Grade A, RABS, or isolator must be formally risk-assessed. The 2022 revision establishes a preference hierarchy: isolators preferred for highest risk, RABS next, open Grade A only where justified.</div></li>
+      <li><span class="check-dot">&#x2713;</span><div><strong>Air supply and return/exhaust arrangement</strong> — Airflow patterns must be documented to show they support contamination control objectives. Recirculation of air from highly contaminated zones into cleaner zones must be explicitly addressed in the CCS.</div></li>
+    </ul>
+    <div class="callout-green">
+      <div class="callout-label">Practical Implication for Design Engineers</div>
+      <p>The CCS is developed collaboratively between the HVAC design engineer, the process engineer, and the Quality Assurance team. The engineer's contribution is to provide the technical justification for each HVAC decision. Engineers who can clearly articulate why their design choices support the CCS are far more valuable to pharmaceutical clients than those who simply produce drawings without documented engineering rationale.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s6">
+    <div class="section-header"><span class="section-num">06</span><h2>Unidirectional Airflow Zone Design</h2></div>
+    <p>Unidirectional airflow (laminar flow) is the primary HVAC strategy for achieving Grade A particle classification. Understanding how to design, qualify, and maintain a UDAF zone is one of the most important competencies for a pharmaceutical HVAC engineer.</p>
+    <div class="callout-purple">
+      <div class="callout-label">Definition — Unidirectional Airflow (EU GMP Annex 1, 2022)</div>
+      <p>Annex 1 defines unidirectional airflow as "airflow where the entire body of air within a defined space moves with uniform velocity along parallel flow lines, providing a sweeping effect." The key words are <em>uniform velocity</em> and <em>sweeping effect</em>. The purpose is not simply to supply HEPA-filtered air — it is to create a continuous, unbroken curtain of clean air that prevents particles generated in the zone from migrating to the product.</p>
+    </div>
+    <div class="example-wrap">
+      <div class="example-header">
+        <div class="example-header-label">Design Worked Example</div>
+        <div class="example-header-title">UDAF Zone Sizing — Sterile Vial Filling Line</div>
+      </div>
+      <div class="example-body">
+        <div class="example-step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-label">Define the Critical Zone — Open Product Exposure Area</div>
+            <div class="step-calc">Filling line length = 4.0 m. Zone width = 2.0 m. Zone height = 2.5 m (ceiling to floor).</div>
+            <div class="step-note">The UDAF zone must extend at least 300mm beyond the open product on all sides to ensure particle sweeping before air reaches the product.</div>
+          </div>
+        </div>
+        <div class="example-step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-label">Set Target HEPA Face Velocity — Annex 1 Guideline Range</div>
+            <div class="step-calc">Target face velocity: 0.45 m/s (centre of the 0.36–0.54 m/s range recommended by ISPE)</div>
+            <div class="step-note">Velocity uniformity across the filter array face must be within &#xB1;20% of mean velocity. Verified by hot-wire anemometer traverse during qualification.</div>
+          </div>
+        </div>
+        <div class="example-step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-label">Calculate HEPA Filter Array Area and Supply Volume</div>
+            <div class="step-calc">HEPA filter area = 4.0 &#xD7; 2.0 = 8.0 m&#xB2; (100% ceiling coverage in critical zone)</div>
+            <div class="step-calc">Supply airflow Q = A &#xD7; V = 8.0 &#xD7; 0.45 = 3.6 m&#xB3;/s = 12,960 m&#xB3;/hr</div>
+            <div class="step-result">Required supply airflow: 12,960 m&#xB3;/hr (3.6 m&#xB3;/s)</div>
+          </div>
+        </div>
+        <div class="example-step">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-label">Verify Equivalent ACH as Cross-Check</div>
+            <div class="step-calc">Zone volume = 4.0 &#xD7; 2.0 &#xD7; 2.5 = 20.0 m&#xB3;</div>
+            <div class="step-calc">ACH = (3.6 &#xD7; 3,600) &#xF7; 20.0 = 648 ACH</div>
+            <div class="step-result">648 ACH — consistent with Grade A UDAF typical range of 400–600+ ACH</div>
+            <div class="step-note">The design driver is face velocity, not ACH. ACH is used here only as a cross-validation.</div>
+          </div>
+        </div>
+        <div class="example-step">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-label">Low-Level Return and Exhaust Arrangement</div>
+            <div class="step-calc">Low-level return grilles at 100–200mm above floor level on both long sides of the UDAF zone. Free area sized to limit return velocity to below 0.5 m/s.</div>
+            <div class="step-note">Return air is recirculated via the cleanroom RAHU system. A portion is exhausted to maintain positive pressurisation of the Grade B background room.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout-info">
+      <div class="callout-label">&#x1F4A1; RABS vs Isolator — When Each Is Used</div>
+      <p>A RABS (Restricted Access Barrier System) is a rigid physical barrier with glove ports allowing limited operator interaction. An Isolator is a fully enclosed, pressure-tested, independently ventilated barrier completely isolating the product from the room. EU GMP Annex 1 (2022) states isolators are preferred for aseptic filling where operator access is infrequent. RABS are appropriate where more frequent intervention is required. Both need their own independent HVAC subsystems designed separately from the background room HVAC.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-header"><span class="section-num">07</span><h2>Key HVAC Design Parameters by Grade</h2></div>
+    <p>The following table summarises the key HVAC design parameters for each cleanroom grade in a Singapore pharmaceutical facility. Where ranges are given, the specific value must be justified in the Basis of Design and traceable to the CCS.</p>
+    <table class="grade-table">
+      <thead>
+        <tr><th>Parameter</th><th>Grade A (UDAF Zone)</th><th>Grade B (Room)</th><th>Grade C (Room)</th><th>Grade D (Room)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Air Supply Temperature</td><td>As per CCS (typically 18–22&#xB0;C)</td><td>18–22&#xB0;C &#xB1;2&#xB0;C</td><td>18–24&#xB0;C &#xB1;2&#xB0;C</td><td>18–26&#xB0;C &#xB1;3&#xB0;C</td></tr>
+        <tr><td>Relative Humidity (RH)</td><td>30–55% (justify in CCS)</td><td>30–55% &#xB1;5%</td><td>30–65% &#xB1;5%</td><td>30–65% &#xB1;5%</td></tr>
+        <tr><td>Air Change Rate</td><td>400–600+ ACH (velocity driven)</td><td>&gt;20–40 ACH</td><td>20–40 ACH</td><td>5–20 ACH</td></tr>
+        <tr><td>Terminal Filter Specification</td><td>HEPA H14 &#x2265;99.995% @ 0.3&#x03BC;m</td><td>HEPA H13/H14 &#x2265;99.95%</td><td>HEPA H13 &#x2265;99.95%</td><td>HEPA H13 or EU F7 minimum</td></tr>
+        <tr><td>Pressure to Adjacent Lower Grade</td><td>+12.5 Pa min (within RABS/Isolator)</td><td>+12.5 Pa min to Grade C</td><td>+12.5 Pa min to Grade D</td><td>+10–15 Pa above corridor</td></tr>
+        <tr><td>Particle Monitoring</td><td>Continuous, real-time in-operation</td><td>Continuous during production</td><td>Periodic (risk-assessed frequency)</td><td>Periodic</td></tr>
+        <tr><td>Airflow Type</td><td>Unidirectional (laminar)</td><td>Non-unidirectional</td><td>Non-unidirectional</td><td>Non-unidirectional</td></tr>
+        <tr><td>HEPA Coverage</td><td>100% of UDAF zone ceiling</td><td>50–100% of ceiling</td><td>25–50% of ceiling</td><td>15–30% of ceiling</td></tr>
+        <tr><td>Singapore Humidity Note</td><td>Deep dehumidification required — 6&#xB0;C CHW supply to MAU coil</td><td>High latent load — delta_&#x03C9; = 0.019 kg/kg</td><td>Moderate latent load</td><td>Standard dehumidification</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <div class="callout-label">Singapore-Specific Design Challenge — Humidity Control</div>
+      <p>Singapore's tropical climate (outdoor RH 80–90%, dew point ~29&#xB0;C) creates one of the world's most demanding pharmaceutical HVAC dehumidification challenges. Achieving Grade A/B target conditions of 30–55% RH requires removing approximately 0.019 kg of moisture from every kilogram of outside air processed. This demands very cold chilled water (typically 6&#xB0;C supply) at the MAU cooling coil, a purpose-designed coil achieving a leaving air dew point of ~8–10&#xB0;C, and a reheat system to raise the supply air temperature back to setpoint after dehumidification. This is the primary HVAC design challenge in Singapore pharmaceutical facilities that does not exist in temperate-climate facilities.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-header"><span class="section-num">08</span><h2>Common GMP HVAC Design Mistakes</h2></div>
+    <p>These are the most frequently encountered GMP HVAC design errors on pharmaceutical projects in Singapore, drawn from ZABU Asia Engineering's direct project experience. Each has caused regulatory findings, costly rework, or production delays on real projects.</p>
+    <ul class="checklist">
+      <li><span class="check-dot check-dot-warn">!</span><div><strong>Designing to EU GMP Annex 1 (2008) in a post-2022 world</strong> — The 2022 revision is in effect. Projects without CCS documentation, without RABS/isolator preference justification, and without continuous pressure monitoring will receive regulatory findings during HSA inspection. Review your design basis immediately if it references the 2008 edition.</div></li>
+      <li><span class="check-dot check-dot-warn">!</span><div><strong>Treating ACH as the primary design driver for Grade A zones</strong> — Grade A classification is driven by face velocity uniformity and particle sweeping, not ACH. An engineer who simply calculates ACH and sizes the HEPA array to hit a target number is applying the wrong methodology. Design for face velocity first, then check ACH as a cross-validation.</div></li>
+      <li><span class="check-dot check-dot-warn">!</span><div><strong>Static pressure differentials that fail during door openings</strong> — A very common qualification finding is that the designed pressure cascade holds at +12.5 Pa under static conditions but drops to near zero when an airlock door is opened. This is caused by inadequate door-opening compensation in the control system and underestimation of the airlock flush volume required. Dynamic pressure performance must be designed for, not assumed.</div></li>
+      <li><span class="check-dot check-dot-warn">!</span><div><strong>Sizing the MAU for sensible load only in Singapore</strong> — In Singapore's tropical climate, the latent (dehumidification) load on the MAU dominates the total load — often exceeding the sensible load. Engineers who size the MAU coil based only on temperature reduction produce a coil that is thermally adequate but cannot achieve the required dew point. Always calculate Q_L (latent) and Q_S (sensible) separately.</div></li>
+      <li><span class="check-dot check-dot-warn">!</span><div><strong>No documented justification for temperature and RH setpoints</strong> — Setting a cleanroom temperature to 20&#xB0;C simply because "that is the standard" is not acceptable under GMP Annex 1 (2022). Every setpoint must be justified as either a product stability requirement, a personnel gowning comfort requirement, or a microbiological growth suppression requirement — and this justification must be traceable to the CCS.</div></li>
+      <li><span class="check-dot check-dot-warn">!</span><div><strong>Failing to validate the CCS against the as-built HVAC system</strong> — The CCS is developed during design based on the intended HVAC system. Changes made during construction — coil substitutions, duct routing changes, diffuser relocations — can invalidate the CCS airflow assumptions. Every construction change affecting airflow, pressurisation, or contamination risk must be formally assessed and the CCS updated accordingly.</div></li>
+      <li><span class="check-dot check-dot-warn">!</span><div><strong>Process exhaust interaction not addressed in HVAC design</strong> — Pharmaceutical manufacturing generates hazardous exhaust streams that must route directly to atmosphere without mixing with the HVAC recirculation system. Failure to segregate process exhaust from HVAC return air can result in chemical contamination of the cleanroom environment — a serious GMP finding and a potential patient safety risk.</div></li>
+    </ul>
+    <div class="callout">
+      <div class="callout-label">From the Field</div>
+      <p>On a real Singapore pharmaceutical project, an HVAC commissioning qualification identified that the Grade B room achieved at-rest particle counts comfortably within Grade B limits — but failed the in-operation test due to a dead-zone in the room airflow created by an equipment relocation made during construction without revisiting the HVAC design. The fix required adding supplementary supply diffusers, re-balancing the room, and repeating the full IQ/OQ/PQ qualification cycle. The total cost of this single design oversight exceeded SGD 280,000. The lesson: construction changes must always be evaluated against the Basis of Design and the CCS, not just accepted in the field.</p>
+    </div>
+  </div>
+
+  <div style="background:var(--white);border:1px solid #DDE2ED;border-radius:10px;padding:1.5rem 2rem;margin:2.5rem 0;display:flex;gap:16px;align-items:flex-start;">
+    <div style="font-size:24px;">&#x1F4E2;</div>
+    <div>
+      <div style="font-weight:700;color:var(--navy);margin-bottom:4px;font-size:0.95rem;">Found this useful?</div>
+      <p style="font-size:0.9rem;margin:0;color:var(--text-body);">Share this with engineers on LinkedIn or Facebook who are working on pharmaceutical projects in Singapore. Follow ZABU Asia Engineering Solutions for Vol. 05 — Data Center Cooling Systems — coming soon.</p>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h3>Go deeper with <span>hands-on training</span></h3>
+    <p>Our Singapore face-to-face engineering training programme covers pharmaceutical GMP HVAC in full detail — cleanroom grade design, CCS development, pressure cascade validation, and EU Annex 1 (2022) compliance. Led by engineers with 25+ years of Singapore MNC pharmaceutical project experience.</p>
+    <div class="cta-pills">
+      <a href="mailto:contact@zabu-asia.com" class="cta-pill">&#x1F4E7; Enquire About Training</a>
+      <a href="https://www.linkedin.com/company/zabu-asia-solutions" class="cta-pill outline" target="_blank">Follow on LinkedIn</a>
+      <a href="https://www.facebook.com/zabu.asia.engineering" class="cta-pill outline" target="_blank">Follow on Facebook</a>
+    </div>
+    <p style="margin-top:1.5rem;font-size:12px;color:rgba(255,255,255,0.4);">ZABU Asia Engineering Solutions · contact@zabu-asia.com · Singapore</p>
+  </div>
+</div>
+<div class="brand-footer">&#xA9; 2025 <strong>ZABU Asia Engineering Solutions</strong>. All rights reserved. · Free Engineering Knowledge Series Vol. 04 · contact@zabu-asia.com</div>
+</body>
+</html>
